@@ -1,0 +1,540 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Algebra — EnforceCore Docs</title>
+    <meta name="description" content="This document defines the algebraic properties of EnforceCore&#39;s policy merge operation. Understanding these properties is essential for composing policies...">
+    <link rel="canonical" href="https://enforcecore.dev/docs/formal/policy-algebra/">
+    <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="#docs-main" class="skip-link">Skip to content</a>
+    <header>
+  <div class="container header-inner">
+
+    <a href="../../" class="logo-link">
+      <img src="../../assets/img/logo-enforcecore-light-x.svg" alt="EnforceCore" class="logo-light header-logo" width="61" height="44">
+      <img src="../../assets/img/logo-enforcecore-dark-x.svg" alt="EnforceCore" class="logo-dark header-logo" width="61" height="44">
+    </a>
+
+    <nav id="main-nav">
+      <div class="nav-links">
+        <a href="../../docs/index.html" class="nav-link">Documentation</a>
+        <a href="../../blog/" class="nav-link">Blog</a>
+        <a href="../../case-studies/" class="nav-link">Use Cases</a>
+        <a href="../../community.html" class="nav-link">Community</a>
+      </div>
+
+      <div class="nav-utils">
+        <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-link nav-github-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <div class="search-container">
+          <div class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <input type="text" id="search-input" placeholder="Search..." aria-label="Search documentation">
+          <div class="search-shortcut">⌘K</div>
+          <div id="search-results" class="search-results"></div>
+        </div>
+        <button id="theme-toggle" class="nav-icon-btn" aria-label="Toggle theme">
+          <svg id="theme-icon-sun" class="theme-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="theme-icon-moon" class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+  </div>
+</header>
+
+
+    <button class="docs-sidebar-toggle" id="docs-sidebar-toggle" aria-label="Toggle navigation">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span>Menu</span>
+    </button>
+    <div class="docs-sidebar-backdrop" id="docs-sidebar-backdrop"></div>
+
+    <div class="page">
+        <div class="docs-wrapper">
+            
+            <aside class="docs-sidebar" id="docs-sidebar">
+                <nav class="docs-nav">
+                    <div class="section-title">Getting Started</div>
+                    <ul>
+                        <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+                        <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+                    </ul>
+
+                    <div class="section-title">Concepts</div>
+                    <ul>
+                        <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+                        <li><a href="../../docs/concepts/policy-engine.html">Policy Engine</a></li>
+                        <li><a href="../../docs/concepts/security-model.html">Security Model</a></li>
+                        <li><a href="../../docs/concepts/defense-in-depth.html">Defense in Depth</a></li>
+                        <li><a href="../../docs/concepts/technology.html">Technology Stack</a></li>
+                    </ul>
+
+                    <div class="section-title">Guides</div>
+                    <ul>
+                        <li><a href="../../docs/guides/integrations.html">Integrations</a></li>
+                        <li><a href="../../docs/guides/development.html">Developer Guide</a></li>
+                        <li><a href="../../docs/guides/tool-selection.html">Tool Selection</a></li>
+                    </ul>
+
+                    <div class="section-title">Reference</div>
+                    <ul>
+                        <li><a href="../../docs/reference/api/enforcer.html">Enforcer API</a></li>
+                        <li><a href="../../docs/reference/api/auditor.html">Auditor API</a></li>
+                        <li><a href="../../docs/reference/api/guard.html">Guard API</a></li>
+                        <li><a href="../../docs/reference/api/redactor.html">Redactor API</a></li>
+                        <li><a href="../../docs/reference/compliance/gdpr.html">GDPR</a></li>
+                        <li><a href="../../docs/reference/compliance/eu-ai-act.html">EU AI Act</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="docs-content" id="docs-main">
+                <h1 id="policy-algebra">Policy Algebra</h1><p>This document defines the algebraic properties of EnforceCore&#39;s policy
+merge operation.  Understanding these properties is essential for
+composing policies safely in multi-layer deployments.</p>
+<h2 id="definitions"><a class="heading-anchor" href="#definitions" aria-label="Link to Definitions"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Definitions</h2><p>A <strong>policy</strong> is a tuple:</p>
+<p>$$
+\pi = (N, V, D, A, R, \omega)
+$$</p>
+<p>where:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$N$</td>
+<td>string</td>
+<td>Policy name</td>
+</tr>
+<tr>
+<td>$V$</td>
+<td>string</td>
+<td>Policy version</td>
+</tr>
+<tr>
+<td>$D$</td>
+<td>set⟨string⟩</td>
+<td>Denied tools (case-insensitive)</td>
+</tr>
+<tr>
+<td>$A$</td>
+<td>set⟨string⟩ ∪ {⊥}</td>
+<td>Allowed tools (⊥ = no restriction)</td>
+</tr>
+<tr>
+<td>$R$</td>
+<td>record</td>
+<td>Policy rules (rate limits, content rules, etc.)</td>
+</tr>
+<tr>
+<td>$\omega$</td>
+<td>string</td>
+<td>On-violation action (&quot;block&quot; or &quot;log&quot;)</td>
+</tr>
+</tbody></table>
+</div><h2 id="merge-operation"><a class="heading-anchor" href="#merge-operation" aria-label="Link to Merge Operation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Merge Operation</h2><p>The merge operation $\text{merge}(\pi_{\text{base}}, \pi_{\text{override}})$
+produces a new policy $\pi&#39;$ according to these rules:</p>
+<h3 id="scalar-fields-override-wins"><a class="heading-anchor" href="#scalar-fields-override-wins" aria-label="Link to Scalar Fields (Override Wins)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Scalar Fields (Override Wins)</h3><p>$$
+\pi&#39;.N = \pi_{\text{override}}.N \qquad
+\pi&#39;.V = \pi_{\text{override}}.V \qquad
+\pi&#39;.\omega = \pi_{\text{override}}.\omega
+$$</p>
+<h3 id="denied-tools-union"><a class="heading-anchor" href="#denied-tools-union" aria-label="Link to Denied Tools (Union)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Denied Tools (Union)</h3><p>$$
+\pi&#39;.D = \text{lower}(\pi_{\text{base}}.D) \cup \text{lower}(\pi_{\text{override}}.D)
+$$</p>
+<p>The denied tools set is the <strong>union</strong> of both source sets, normalized
+to lowercase.  This is the key security property — merging never
+<em>removes</em> a denial.</p>
+<h3 id="allowed-tools-override-wins"><a class="heading-anchor" href="#allowed-tools-override-wins" aria-label="Link to Allowed Tools (Override Wins)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Allowed Tools (Override Wins)</h3><p>$$
+\pi&#39;.A = \begin{cases}
+  \pi_{\text{override}}.A &amp; \text{if } \pi_{\text{override}}.A \neq \bot \
+  \pi_{\text{base}}.A &amp; \text{otherwise}
+\end{cases}
+$$</p>
+<h3 id="denied-domains-union"><a class="heading-anchor" href="#denied-domains-union" aria-label="Link to Denied Domains (Union)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Denied Domains (Union)</h3><p>$$
+\pi&#39;.D_{\text{domains}} = \pi_{\text{base}}.D_{\text{domains}} \cup \pi_{\text{override}}.D_{\text{domains}}
+$$</p>
+<h3 id="block-patterns-union-with-override-first-dedup"><a class="heading-anchor" href="#block-patterns-union-with-override-first-dedup" aria-label="Link to Block Patterns (Union with Override-First Dedup)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Block Patterns (Union with Override-First Dedup)</h3><p>$$
+\pi&#39;.B = \text{dedup}(\pi_{\text{override}}.B \mathbin\Vert \pi_{\text{base}}.B)
+$$</p>
+<p>Override patterns take precedence when names collide.</p>
+<h3 id="rate-limits-per-tool-override"><a class="heading-anchor" href="#rate-limits-per-tool-override" aria-label="Link to Rate Limits (Per-Tool Override)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Rate Limits (Per-Tool Override)</h3><p>$$
+\pi&#39;.R_{\text{per_tool}}[t] = \begin{cases}
+  \pi_{\text{override}}.R_{\text{per_tool}}[t] &amp; \text{if } t \in \pi_{\text{override}}.R_{\text{per_tool}} \
+  \pi_{\text{base}}.R_{\text{per_tool}}[t] &amp; \text{otherwise}
+\end{cases}
+$$</p>
+<hr>
+<h2 id="algebraic-properties"><a class="heading-anchor" href="#algebraic-properties" aria-label="Link to Algebraic Properties"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Algebraic Properties</h2><h3 id="1-monotonic-denial-proven"><a class="heading-anchor" href="#1-monotonic-denial-proven" aria-label="Link to 1. Monotonic Denial (Proven)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>1. Monotonic Denial (Proven)</h3><p>$$
+\forall, \pi_1, \pi_2:\quad
+\text{merge}(\pi_1, \pi_2).D \supseteq \pi_1.D \cup \pi_2.D
+$$</p>
+<p>Merging policies never removes denied tools.  This property is
+critical for security: an administrator&#39;s denials cannot be
+overridden by a downstream policy.</p>
+<p><strong>Verified by:</strong> <code>tests/formal/test_prop_policy.py::TestMergeDeniedUnion</code></p>
+<h3 id="2-denial-monotonicity-through-composition"><a class="heading-anchor" href="#2-denial-monotonicity-through-composition" aria-label="Link to 2. Denial Monotonicity Through Composition"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>2. Denial Monotonicity Through Composition</h3><p>$$
+\forall, \pi_1, \pi_2, \pi_3:\quad
+\text{merge}(\pi_1, \text{merge}(\pi_2, \pi_3)).D \supseteq
+\pi_1.D \cup \pi_2.D \cup \pi_3.D
+$$</p>
+<p>This follows from applying Property 1 twice:</p>
+<ol>
+<li>$\text{merge}(\pi_2, \pi_3).D \supseteq \pi_2.D \cup \pi_3.D$</li>
+<li>$\text{merge}(\pi_1, \text{merge}(\pi_2, \pi_3)).D \supseteq \pi_1.D \cup (\pi_2.D \cup \pi_3.D)$</li>
+</ol>
+<h3 id="3-override-determinism"><a class="heading-anchor" href="#3-override-determinism" aria-label="Link to 3. Override Determinism"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>3. Override Determinism</h3><p>$$
+\forall, \pi_1, \pi_2:\quad
+\text{merge}(\pi_1, \pi_2).N = \pi_2.N
+\quad\land\quad
+\text{merge}(\pi_1, \pi_2).V = \pi_2.V
+$$</p>
+<p>Scalar fields always take the override value.  This is deterministic
+and not affected by the base policy&#39;s values.</p>
+<h3 id="4-deny-priority-over-allow"><a class="heading-anchor" href="#4-deny-priority-over-allow" aria-label="Link to 4. Deny Priority Over Allow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>4. Deny Priority Over Allow</h3><p>$$
+\forall, t \in \pi.D \cap \pi.A:\quad
+\text{evaluate}(\pi, t) = \text{BLOCKED}
+$$</p>
+<p>The enforcement engine checks denied tools <strong>before</strong> allowed tools.
+This means that even if a tool appears in both lists, it is always
+blocked.</p>
+<p><strong>Verified by:</strong> <code>tests/formal/test_prop_policy.py::TestDenyPriority</code></p>
+<hr>
+<h2 id="evaluation-semantics"><a class="heading-anchor" href="#evaluation-semantics" aria-label="Link to Evaluation Semantics"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Evaluation Semantics</h2><p>The <code>evaluate_pre_call</code> function implements a two-stage check:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">evaluate(π, t):
+    if lower(t) ∈ lower(π.D):
+        return BLOCKED          ← Stage 1: deny check
+    if π.A ≠ ⊥ and lower(t) ∉ lower(π.A):
+        return BLOCKED          ← Stage 2: allow check
+    return ALLOWED</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p>This produces the following truth table:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th align="center"><code>t ∈ D</code></th>
+<th align="center"><code>A = ⊥</code></th>
+<th align="center"><code>t ∈ A</code></th>
+<th align="center"><strong>Decision</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">✓</td>
+<td align="center">—</td>
+<td align="center">—</td>
+<td align="center">BLOCKED</td>
+</tr>
+<tr>
+<td align="center">✗</td>
+<td align="center">✓</td>
+<td align="center">—</td>
+<td align="center">ALLOWED</td>
+</tr>
+<tr>
+<td align="center">✗</td>
+<td align="center">✗</td>
+<td align="center">✓</td>
+<td align="center">ALLOWED</td>
+</tr>
+<tr>
+<td align="center">✗</td>
+<td align="center">✗</td>
+<td align="center">✗</td>
+<td align="center">BLOCKED</td>
+</tr>
+</tbody></table>
+</div><hr>
+<h2 id="conflict-resolution"><a class="heading-anchor" href="#conflict-resolution" aria-label="Link to Conflict Resolution"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Conflict Resolution</h2><p>When composing multiple policies (e.g., org → team → project), the
+merge operation applies left to right:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">final = merge(merge(org, team), project)</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p><strong>Conflict resolution summary:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Resolution</th>
+<th>Security Impact</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>denied_tools</code></td>
+<td>Union</td>
+<td>✅ Denials are additive — cannot be removed</td>
+</tr>
+<tr>
+<td><code>denied_domains</code></td>
+<td>Union</td>
+<td>✅ Domain blocks are additive</td>
+</tr>
+<tr>
+<td><code>allowed_tools</code></td>
+<td>Override wins</td>
+<td>⚠️ Override can widen or narrow access</td>
+</tr>
+<tr>
+<td><code>block_patterns</code></td>
+<td>Union (override-first)</td>
+<td>✅ Patterns are additive</td>
+</tr>
+<tr>
+<td><code>rate_limits</code></td>
+<td>Per-tool override</td>
+<td>⚠️ Override can relax limits</td>
+</tr>
+<tr>
+<td><code>name</code>, <code>version</code></td>
+<td>Override wins</td>
+<td>Informational</td>
+</tr>
+<tr>
+<td><code>on_violation</code></td>
+<td>Override wins</td>
+<td>⚠️ Override can change to &quot;log&quot;</td>
+</tr>
+</tbody></table>
+</div><h3 id="security-implications"><a class="heading-anchor" href="#security-implications" aria-label="Link to Security Implications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Security Implications</h3><ol>
+<li><p><strong>Safe composability of denials:</strong> Since <code>denied_tools</code> uses union,
+an organization-level denial <strong>cannot</strong> be overridden by a team or
+project policy.  This is the foundational security guarantee.</p>
+</li>
+<li><p><strong>Allowlist caution:</strong> The override-wins semantics for <code>allowed_tools</code>
+means a downstream policy can widen access.  Organizations should
+enforce allowlists at the highest level and use denied tools for
+hard restrictions.</p>
+</li>
+<li><p><strong>Rate limit relaxation:</strong> A downstream policy can override rate
+limits per tool.  Enforce minimum rate limits at the organization
+level through denied tools or monitoring.</p>
+</li>
+</ol>
+<hr>
+<h2 id="edge-cases"><a class="heading-anchor" href="#edge-cases" aria-label="Link to Edge Cases"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Edge Cases</h2><h3 id="empty-merge"><a class="heading-anchor" href="#empty-merge" aria-label="Link to Empty Merge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Empty Merge</h3><p>$$
+\text{merge}(\pi, \text{default}) \approx \pi
+$$</p>
+<p>Merging with a default (empty-rules) policy preserves all fields from
+the base, except name and version which take the override values.</p>
+<h3 id="self-merge"><a class="heading-anchor" href="#self-merge" aria-label="Link to Self-Merge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Self-Merge</h3><p>$$
+\text{merge}(\pi, \pi).D = \pi.D
+$$</p>
+<p>Merging a policy with itself is idempotent for denied tools (union of
+a set with itself).</p>
+<h3 id="cascade-example"><a class="heading-anchor" href="#cascade-example" aria-label="Link to Cascade Example"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Cascade Example</h3><p>Given three policies:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-yaml"><span class="hljs-comment"># org.yaml</span>
+<span class="hljs-attr">denied_tools:</span> [<span class="hljs-string">dangerous_tool</span>]
+<span class="hljs-attr">allowed_tools:</span> <span class="hljs-literal">null</span>  <span class="hljs-comment"># unrestricted</span>
+
+<span class="hljs-comment"># team.yaml</span>
+<span class="hljs-attr">denied_tools:</span> [<span class="hljs-string">risky_tool</span>]
+<span class="hljs-attr">allowed_tools:</span> [<span class="hljs-string">search</span>, <span class="hljs-string">browse</span>, <span class="hljs-string">code_exec</span>]
+
+<span class="hljs-comment"># project.yaml</span>
+<span class="hljs-attr">denied_tools:</span> []
+<span class="hljs-attr">allowed_tools:</span> [<span class="hljs-string">search</span>, <span class="hljs-string">browse</span>]</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p>The final merged policy:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">denied_tools: [dangerous_tool, risky_tool]  # union of all
+allowed_tools: [search, browse]             # project override wins</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p>This means:</p>
+<ul>
+<li><code>dangerous_tool</code> → BLOCKED (org denial persists)</li>
+<li><code>risky_tool</code> → BLOCKED (team denial persists)</li>
+<li><code>code_exec</code> → BLOCKED (project narrowed the allowlist)</li>
+<li><code>search</code> → ALLOWED</li>
+<li><code>browse</code> → ALLOWED</li>
+</ul>
+
+                
+            </main>
+        </div>
+    </div>
+
+    <footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">EnforceCore</div>
+        <div class="footer-brand-desc">Runtime enforcement for AI agents.</div>
+        <div class="flex gap-3" style="margin-top: var(--space-3);">
+          <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://discord.gg/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="Discord">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.946 2.419-2.157 2.419z"/></svg>
+          </a>
+          <a href="https://x.com/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="X (Twitter)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Documentation</div>
+        <ul>
+          <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+          <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+          <li><a href="../../docs/reference/api/enforcer.html">API Reference</a></li>
+          <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <ul>
+          <li><a href="../../blog/">Blog</a></li>
+          <li><a href="../../case-studies/">Use Cases</a></li>
+          <li><a href="../../community.html">Community</a></li>
+          <li><a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="../../legal.html">Overview</a></li>
+          <li><a href="../../terms.html">Terms of Use</a></li>
+          <li><a href="../../privacy.html">Privacy Policy</a></li>
+          <li><a href="../../cookies.html">Cookies</a></li>
+          <li><a href="../../disclosure.html">Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EnforceCore Contributors · <a href="https://github.com/akios-ai/EnforceCore/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0</a></span>
+    </div>
+  </div>
+</footer>
+
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/search.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mainNav = document.getElementById('main-nav');
+      if (menuBtn && mainNav) {
+        menuBtn.addEventListener('click', () => {
+          mainNav.classList.toggle('open');
+          document.body.classList.toggle('mobile-nav-open');
+          const isOpen = mainNav.classList.contains('open');
+          menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+          menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          menuBtn.innerHTML = isOpen
+            ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+            : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+        });
+
+        // Close menu when a nav link is clicked
+        mainNav.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            document.body.classList.remove('mobile-nav-open');
+            menuBtn.setAttribute('aria-label', 'Open menu');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+          });
+        });
+      }
+
+      // Tab switching
+      document.querySelectorAll('.code-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.tab;
+          const win = btn.closest('.code-window');
+          if (!win) return;
+          win.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+          win.querySelectorAll('.code-content').forEach(c => c.classList.add('hidden'));
+          btn.classList.add('active');
+          const pane = document.getElementById('tab-' + tab);
+          if (pane) pane.classList.remove('hidden');
+        });
+      });
+
+      // Install command copy
+      const installCopyBtn = document.getElementById('install-copy');
+      if (installCopyBtn) {
+        installCopyBtn.addEventListener('click', () => {
+          const cmd = document.getElementById('install-cmd')?.innerText?.trim();
+          if (!cmd) return;
+          navigator.clipboard.writeText(cmd).then(() => {
+            installCopyBtn.style.color = '#22d3ee';
+            setTimeout(() => { installCopyBtn.style.color = ''; }, 2000);
+          });
+        });
+      }
+
+    });
+
+    // Copy buttons for code blocks
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre').forEach(pre => {
+        if (pre.closest('.code-block-wrapper')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.innerText = 'Copy';
+        btn.onclick = () => {
+          navigator.clipboard.writeText(pre.innerText).then(() => {
+            btn.innerText = 'Copied!';
+            setTimeout(() => btn.innerText = 'Copy', 2000);
+          });
+        };
+        wrapper.appendChild(btn);
+      });
+    });
+  </script>
+
+    
+    <script>
+        (function() {
+            var p = window.location.pathname.replace(/\/$/, '').replace(/\/index\.html$/, '');
+            document.querySelectorAll('.docs-nav a').forEach(function(link) {
+                var href = link.getAttribute('href');
+                var normalized = href.replace(/\/$/, '').replace(/\/index\.html$/, '').replace(/\.html$/, '');
+                if (p.endsWith(normalized) || p.endsWith(normalized.replace(/\.html$/, ''))) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Docs sidebar toggle
+            var toggle = document.getElementById('docs-sidebar-toggle');
+            var sidebar = document.getElementById('docs-sidebar');
+            var backdrop = document.getElementById('docs-sidebar-backdrop');
+            if (toggle && sidebar) {
+                toggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    if (backdrop) backdrop.classList.toggle('open');
+                });
+                if (backdrop) {
+                    backdrop.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        backdrop.classList.remove('open');
+                    });
+                }
+                sidebar.querySelectorAll('a').forEach(function(a) {
+                    a.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        if (backdrop) backdrop.classList.remove('open');
+                    });
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

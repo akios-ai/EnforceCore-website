@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EnforceCore — Runtime Enforcement for AI Agents</title>
+  <meta name="description" content="The open-source runtime enforcement layer for agentic AI systems. Policy engine, PII redaction, Merkle audit, streaming enforcement, compliance reporting, and LangChain integration. Apache 2.0.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://enforcecore.dev/">
+  <meta property="og:title" content="EnforceCore — Runtime Enforcement for AI Agents">
+  <meta property="og:description" content="The open-source runtime enforcement layer for agentic AI systems. Policy engine, PII redaction, Merkle audit, streaming enforcement, compliance reporting, and LangChain integration. Apache 2.0.">
+
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://enforcecore.dev/">
+  <meta property="twitter:title" content="EnforceCore — Runtime Enforcement for AI Agents">
+  <meta property="twitter:description" content="The open-source runtime enforcement layer for agentic AI systems. Policy engine, PII redaction, Merkle audit, streaming enforcement, compliance reporting, and LangChain integration. Apache 2.0.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header>
+  <div class="container header-inner">
+
+    <a href="./" class="logo-link">
+      <img src="./assets/img/logo-enforcecore-light-x.svg" alt="EnforceCore" class="logo-light header-logo" width="61" height="44">
+      <img src="./assets/img/logo-enforcecore-dark-x.svg" alt="EnforceCore" class="logo-dark header-logo" width="61" height="44">
+    </a>
+
+    <nav id="main-nav">
+      <div class="nav-links">
+        <a href="./docs/index.html" class="nav-link">Documentation</a>
+        <a href="./blog/" class="nav-link">Blog</a>
+        <a href="./case-studies/" class="nav-link">Use Cases</a>
+        <a href="./community.html" class="nav-link">Community</a>
+      </div>
+
+      <div class="nav-utils">
+        <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-link nav-github-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <div class="search-container">
+          <div class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <input type="text" id="search-input" placeholder="Search..." aria-label="Search documentation">
+          <div class="search-shortcut">⌘K</div>
+          <div id="search-results" class="search-results"></div>
+        </div>
+        <button id="theme-toggle" class="nav-icon-btn" aria-label="Toggle theme">
+          <svg id="theme-icon-sun" class="theme-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="theme-icon-moon" class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+  </div>
+</header>
+
+
+  <main id="main-content">
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section class="hero">
+      <div class="hero-glow"></div>
+      <div class="container">
+        <div class="hero-inner">
+
+          <div class="hero-text animate-in">
+            <div class="hero-badges">
+              <span class="badge badge-version">v1.14.0 &nbsp;·&nbsp; Stable</span>
+              <span class="badge badge-license">Apache 2.0</span>
+            </div>
+
+            <h1>Runtime enforcement.<br><span class="gradient-text">Not prompt prayers.</span></h1>
+
+            <p class="hero-desc">EnforceCore intercepts every agent action <em>before</em> execution — blocking policy violations, redacting PII, and producing tamper-proof audit trails. Works with LangChain, LangGraph, CrewAI, AutoGen, and plain Python. No model fine-tuning. No trust in the LLM.</p>
+
+            <div class="hero-actions">
+              <a href="./docs/getting-started/introduction" class="btn btn-primary">
+                Get Started
+              </a>
+              <a href="https://github.com/akios-ai/EnforceCore" class="btn btn-secondary" target="_blank" rel="noopener">
+                GitHub →
+              </a>
+            </div>
+
+            <div class="install-bar">
+              <span class="install-label">Install</span>
+              <code class="install-cmd" id="install-cmd">pip install enforcecore</code>
+              <button class="install-copy" id="install-copy" aria-label="Copy install command">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-code animate-in" style="animation-delay:.12s">
+            <div class="code-window">
+              <div class="code-window-bar">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <div class="code-tabs">
+                  <button class="code-tab active" data-tab="agent">agent.py</button>
+                  <button class="code-tab" data-tab="policy">policy.yaml</button>
+                </div>
+              </div>
+              <div class="code-body">
+
+                <pre class="code-content" id="tab-agent"><code><span class="c">from</span> enforcecore <span class="c">import</span> enforce
+<span class="c">from</span> langgraph.prebuilt <span class="c">import</span> create_react_agent
+
+<span class="kw">@enforce</span>(policy=<span class="s">"policy.yaml"</span>)
+<span class="kw">def</span> <span class="fn">run_agent</span>(user_input: <span class="t">str</span>) -> <span class="t">str</span>:
+    agent = create_react_agent(model, tools)
+    result = agent.<span class="fn">invoke</span>({<span class="s">"messages"</span>: user_input})
+    <span class="kw">return</span> result[<span class="s">"output"</span>]
+
+<span class="c"># EnforceCore fires on every tool call</span>
+<span class="c"># Policy violations → blocked before execution</span>
+<span class="c"># PII in output → redacted automatically</span>
+<span class="c"># Every action → Merkle-chained audit log</span>
+</code></pre>
+
+                <pre class="code-content hidden" id="tab-policy"><code><span class="c"># policy.yaml — EnforceCore v1.14</span>
+<span class="kw">name</span>: <span class="s">"production"</span>
+<span class="kw">on_violation</span>: <span class="s">"block"</span>
+
+<span class="kw">rules</span>:
+  <span class="kw">denied_tools</span>:
+    - <span class="s">execute_shell</span>
+    - <span class="s">delete_file</span>
+    - <span class="s">send_email</span>
+  <span class="kw">allowed_tools</span>:
+    - <span class="s">read_file</span>
+    - <span class="s">web_search</span>
+    - <span class="s">calculator</span>
+
+  <span class="kw">pii_redaction</span>:
+    <span class="kw">enabled</span>: <span class="t">true</span>
+    <span class="kw">categories</span>: [<span class="s">email</span>, <span class="s">phone</span>, <span class="s">ssn</span>, <span class="s">credit_card</span>]
+
+  <span class="kw">network_control</span>:
+    <span class="kw">allowed_domains</span>: [<span class="s">"api.openai.com"</span>]
+
+  <span class="kw">resource_limits</span>:
+    <span class="kw">max_cost_usd</span>: <span class="t">5.00</span>
+</code></pre>
+
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /.hero-inner -->
+
+        <div class="stats-row animate-in" style="animation-delay:.22s">
+          <div class="stat-item">
+            <span class="stat-num">2,366</span>
+            <span class="stat-label">tests passing</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">97%</span>
+            <span class="stat-label">coverage</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">26</span>
+            <span class="stat-label">adversarial scenarios contained</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">&lt;0.06 ms</span>
+            <span class="stat-label">E2E enforcement (P50)</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">4</span>
+            <span class="stat-label">runtime dependencies</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">14</span>
+            <span class="stat-label">releases shipped</span>
+          </div>
+        </div>
+
+      </div><!-- /.container -->
+    </section>
+
+    <!-- ============================================================
+         FRAMEWORKS STRIP
+    ============================================================ -->
+    <section class="frameworks-section">
+      <div class="container">
+        <p class="frameworks-label">Works with any Python agent framework</p>
+        <div class="frameworks-strip">
+          <span class="framework-pill">LangChain</span>
+          <span class="framework-pill">LangGraph</span>
+          <span class="framework-pill">CrewAI</span>
+          <span class="framework-pill">AutoGen</span>
+          <span class="framework-pill">Plain Python</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         COMPARISON
+    ============================================================ -->
+    <section class="comparison-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Prompt guardrails can be bypassed.<br>Runtime enforcement cannot.</h2>
+          <p class="section-desc">Instructing an LLM to "be safe" is not a security boundary. EnforceCore sits between your agent and the world — as code, not conversation.</p>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-col comparison-col-bad">
+            <div class="comparison-badge comparison-badge-bad">❌ Prompt Guardrails</div>
+            <ul class="comparison-list">
+              <li class="comparison-item-bad">Model can be jailbroken</li>
+              <li class="comparison-item-bad">No guarantee PII stays out of logs</li>
+              <li class="comparison-item-bad">No audit trail you can verify</li>
+              <li class="comparison-item-bad">Resource limits are suggestions</li>
+              <li class="comparison-item-bad">Fails silently on adversarial prompts</li>
+            </ul>
+          </div>
+          <div class="comparison-col comparison-col-good">
+            <div class="comparison-badge comparison-badge-good">✅ EnforceCore</div>
+            <ul class="comparison-list">
+              <li class="comparison-item-good">Policy enforced in Python, not in the LLM</li>
+              <li class="comparison-item-good">PII redacted before any tool call executes</li>
+              <li class="comparison-item-good">Merkle-chained, tamper-proof audit log</li>
+              <li class="comparison-item-good">Hard token, cost, and rate-limit caps</li>
+              <li class="comparison-item-good">26 adversarial scenarios across 11 threat categories — all blocked</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         COMPONENTS
+    ============================================================ -->
+    <section class="components-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>The enforcement stack. One decorator.</h2>
+          <p class="section-desc">Every component works independently or together. Drop in what you need — from policy checks to full compliance reporting.</p>
+        </div>
+
+        <div class="components-grid">
+
+          <div class="component-card animate-in">
+            <div class="component-icon">⚙️</div>
+            <h3>Policy Engine</h3>
+            <p>Declarative YAML policy — allow/deny actions, require approvals, set confidence thresholds. Evaluated deterministically before every tool call.</p>
+            <pre class="component-code"><code>policy = Policy.from_file(<span class="s">"policy.yaml"</span>)
+engine = PolicyEngine(policy)
+result = engine.evaluate_pre_call(context)
+<span class="c"># result.is_allowed | result.reason</span></code></pre>
+          </div>
+
+          <div class="component-card animate-in" style="animation-delay:.06s">
+            <div class="component-icon">🔒</div>
+            <h3>PII Redactor</h3>
+            <p>Detects and redacts 11 PII categories — email, phone, SSN, credit card, name, address, and more — using regex patterns and optional Presidio NER.</p>
+            <pre class="component-code"><code>redactor = Redactor(strategy=<span class="s">PLACEHOLDER</span>)
+result = redactor.redact(agent_output)
+<span class="c"># result.text → "[EMAIL]", "[PHONE]"</span></code></pre>
+          </div>
+
+          <div class="component-card animate-in" style="animation-delay:.12s">
+            <div class="component-icon">🔗</div>
+            <h3>Merkle Auditor</h3>
+            <p>Every agent action is hashed and chained into a Merkle tree with external hash injection (Merkle Bridge). Tamper-evident. Exportable. Independently verifiable.</p>
+            <pre class="component-code"><code>auditor = Auditor()
+auditor.record(tool_name=<span class="s">"search"</span>, decision=<span class="s">"allowed"</span>)
+<span class="c"># Verify: verify_trail("trail.jsonl")</span></code></pre>
+          </div>
+
+          <div class="component-card animate-in" style="animation-delay:.18s">
+            <div class="component-icon">🛡️</div>
+            <h3>Resource Guard</h3>
+            <p>Hard limits on tokens per call, calls per minute, and cost per session. When limits are hit, calls are blocked — not throttled, not logged, <em>blocked</em>.</p>
+            <pre class="component-code"><code><span class="c"># Configured via policy YAML</span>
+enforcer = Enforcer.from_file(<span class="s">"policy.yaml"</span>)
+enforcer.record_cost(<span class="t">0.02</span>)
+<span class="c"># Raises CostLimitError if exceeded</span></code></pre>
+          </div>
+
+          <div class="component-card animate-in" style="animation-delay:.24s">
+            <div class="component-icon">🌐</div>
+            <h3>Network Control</h3>
+            <p>Domain allowlisting with wildcard support. Agents can only reach endpoints you explicitly permit. All other traffic is denied.</p>
+            <pre class="component-code"><code><span class="kw">network_control</span>:
+  <span class="kw">allowed_domains</span>:
+    - <span class="s">"api.openai.com"</span>
+    - <span class="s">"*.internal.co"</span>
+<span class="c"># All other domains → blocked</span></code></pre>
+          </div>
+
+          <div class="component-card animate-in" style="animation-delay:.30s">
+            <div class="component-icon">🌊</div>
+            <h3>Streaming Enforcement</h3>
+            <p>AsyncIO streaming enforcement with lookahead. PII redaction and policy checks run on streaming output in real-time, not just at the end.</p>
+            <pre class="component-code"><code><span class="c">from</span> enforcecore <span class="c">import</span> stream_enforce
+
+<span class="kw">async for</span> chunk <span class="kw">in</span> <span class="fn">stream_enforce</span>(gen):
+    <span class="c"># PII redacted in real-time</span></code></pre>
+          </div>
+
+          <div class="component-card animate-in" style="animation-delay:.36s">
+            <div class="component-icon">📋</div>
+            <h3>Compliance Reporting</h3>
+            <p>Export audit trails as EU AI Act, SOC2, or GDPR compliance reports. Built-in report generators with <code>enforcecore audit export</code>.</p>
+            <pre class="component-code"><code>$ enforcecore audit export \
+    --format <span class="s">eu-ai-act</span> \
+    --output <span class="s">report.html</span>
+<span class="c"># SOC2, GDPR also supported</span></code></pre>
+          </div>
+
+          <div class="component-card animate-in" style="animation-delay:.42s">
+            <div class="component-icon">🔌</div>
+            <h3>Plugin Ecosystem</h3>
+            <p>Extend enforcement with custom guards and redactors from PyPI. Discover and manage plugins with <code>enforcecore plugin list</code>.</p>
+            <pre class="component-code"><code>$ enforcecore plugin list
+$ enforcecore plugin install \
+    <span class="s">my-custom-guard</span>
+<span class="c"># Extend via PyPI packages</span></code></pre>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ADVERSARIAL PROOF
+    ============================================================ -->
+    <section class="proof-section">
+      <div class="container">
+        <div class="proof-inner">
+          <div class="proof-text">
+            <h2>26 adversarial scenarios.<br>0 breaches.</h2>
+            <p>
+              The test suite includes 26 adversarial scenarios across 11 threat categories — prompt injection, PII leakage, resource exhaustion, policy bypass, and more. Plus 22 Hypothesis property-based tests. Every scenario is contained before the tool call executes.
+            </p>
+            <a href="./docs/security/adversarial-testing" class="btn btn-secondary">
+              View test methodology →
+            </a>
+          </div>
+
+          <div class="proof-table-wrapper">
+            <table class="proof-table">
+              <thead>
+                <tr>
+                  <th>Threat Category</th>
+                  <th>Scenarios</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <td>2/2</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+                <tr>
+                  <td>PII leakage</td>
+                  <td>2/2</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+                <tr>
+                  <td>Resource exhaustion</td>
+                  <td>2/2</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+                <tr>
+                  <td>Unauthorized file access</td>
+                  <td>2/2</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+                <tr>
+                  <td>Shell execution</td>
+                  <td>2/2</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+                <tr>
+                  <td>Exfiltration via email</td>
+                  <td>2/2</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+                <tr>
+                  <td>Audit log tampering</td>
+                  <td>2/2</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+                <tr>
+                  <td>Policy bypass via jailbreak</td>
+                  <td>2/2</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+                <tr>
+                  <td>Indirect injection via tool output</td>
+                  <td>2/2</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+                <tr>
+                  <td>Cost limit bypass</td>
+                  <td>2/2</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+                <tr>
+                  <td>Network exfiltration</td>
+                  <td>4/4</td>
+                  <td class="proof-pass">✓ Contained</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LANGCHAIN INTEGRATION
+    ============================================================ -->
+    <section class="langchain-section">
+      <div class="container">
+        <div class="langchain-inner">
+          <div class="langchain-text">
+            <span class="badge badge-version" style="margin-bottom: var(--space-4);">New in v1.13</span>
+            <h2>Native LangChain integration.</h2>
+            <p>Since v1.13, EnforceCore ships a native <code>EnforceCoreCallbackHandler</code> for LangChain. PII redaction and audit logging on every LLM call — zero code changes to your chain.</p>
+            <a href="./docs/guides/integrations" class="btn btn-secondary">
+              See integration docs →
+            </a>
+          </div>
+          <div class="langchain-code">
+            <div class="code-window">
+              <div class="code-window-bar">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span class="code-tab active" style="margin-left: 12px;">langchain_demo.py</span>
+              </div>
+              <div class="code-body">
+                <pre class="code-content"><code><span class="c">from</span> enforcecore.integrations.langchain <span class="c">import</span> (
+    EnforceCoreCallbackHandler
+)
+<span class="c">from</span> langchain_openai <span class="c">import</span> ChatOpenAI
+
+<span class="c"># One line — PII redacted, audit logged</span>
+handler = <span class="fn">EnforceCoreCallbackHandler</span>(
+    policy=<span class="s">"policy.yaml"</span>
+)
+llm = <span class="fn">ChatOpenAI</span>(callbacks=[handler])
+
+result = llm.<span class="fn">invoke</span>(<span class="s">"My SSN is 123-45-6789"</span>)
+<span class="c"># SSN redacted before the LLM sees it</span>
+<span class="c"># Audit entry created automatically</span>
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         STEPS
+    ============================================================ -->
+    <section class="steps-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Up in three steps.</h2>
+          <p class="section-desc">No new infrastructure. No vendor account. Just Python.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step animate-in">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>One package. Four runtime dependencies. Works in any virtualenv. Python 3.11+.</p>
+            <pre class="step-code"><code>pip install enforcecore</code></pre>
+          </div>
+
+          <div class="step animate-in" style="animation-delay:.08s">
+            <div class="step-number">2</div>
+            <h3>Write a policy</h3>
+            <p>Declare what your agent can and cannot do in plain YAML. Supports inheritance, multi-tenant, and remote policy servers.</p>
+            <pre class="step-code"><code>name: "my-policy"
+rules:
+  denied_tools: [execute_shell, send_email]
+  pii_redaction:
+    enabled: true</code></pre>
+          </div>
+
+          <div class="step animate-in" style="animation-delay:.16s">
+            <div class="step-number">3</div>
+            <h3>Add the decorator</h3>
+            <p>One decorator wraps your agent. EnforceCore handles policy, PII, audit, and resource limits.</p>
+            <pre class="step-code"><code>from enforcecore import enforce
+
+@enforce(policy="policy.yaml")
+def run_agent(user_input: str) -> str:
+    ...</code></pre>
+          </div>
+        </div>
+
+        <div class="steps-cta">
+          <a href="./docs/getting-started/introduction" class="btn btn-primary">
+            Read the full guide →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ
+    ============================================================ -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Common questions</h2>
+        </div>
+
+        <div class="faq-grid">
+
+          <details class="faq-item" open>
+            <summary class="faq-q">Does EnforceCore add latency to my agent?</summary>
+            <div class="faq-a">
+              <p>The measured overhead is <strong>0.056 ms P50</strong> for full E2E enforcement (Apple Silicon, Python 3.13). In any real agent workflow, network latency to the LLM dwarfs this by four orders of magnitude. PII detection with Presidio NER adds ~2 ms; regex-only mode stays under 0.1 ms.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">Which agent frameworks are supported?</summary>
+            <div class="faq-a">
+              <p>Any framework that uses Python functions as tools: <strong>LangChain</strong> (native callback handler), <strong>LangGraph, CrewAI, AutoGen,</strong> and plain Python. The <code>@enforce</code> decorator is framework-agnostic — it wraps any callable.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">Does EnforceCore send any data to external services?</summary>
+            <div class="faq-a">
+              <p>No. EnforceCore runs entirely in your process. The policy engine, PII redactor, and Merkle auditor have zero network calls. Audit logs are written locally. Nothing leaves your environment unless you explicitly export it.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">What is the license?</summary>
+            <div class="faq-a">
+              <p><strong>Apache 2.0.</strong> You can use, modify, and distribute EnforceCore in commercial products without restriction. No royalties, no usage limits, no GPL copyleft. Full terms in <a href="https://github.com/akios-ai/EnforceCore/blob/main/LICENSE" target="_blank" rel="noopener">LICENSE</a>.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">Is this production-ready?</summary>
+            <div class="faq-a">
+              <p>Yes. <strong>v1.14.0</strong> is the latest stable release — the 14th shipped version. It has 2,366 tests, 97% coverage, and a semantic versioning commitment: no breaking changes in the 1.x line without a major version bump.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">Does it support compliance reporting?</summary>
+            <div class="faq-a">
+              <p>Yes. Since v1.8, EnforceCore can export audit trails as <strong>EU AI Act, SOC2, and GDPR</strong> compliance reports via <code>enforcecore audit export</code>. These are structured reports designed for auditors — not just raw logs.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CTA
+    ============================================================ -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Your agents should have hard limits,<br>not soft suggestions.</h2>
+        <p class="cta-desc">EnforceCore is free, open-source, and deploys in minutes. 14 releases shipped. Start enforcing today.</p>
+        <div class="cta-actions">
+          <a href="./docs/getting-started/introduction" class="btn btn-primary btn-lg">
+            Get Started
+          </a>
+          <a href="https://github.com/akios-ai/EnforceCore" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">
+            View on GitHub
+          </a>
+        </div>
+        <p class="cta-meta">
+            Full reference docs at
+            <a href="https://akios.ai/enforcecore/" target="_blank" rel="noopener">akios.ai/enforcecore</a>
+            &nbsp;·&nbsp;
+            Built by the <a href="https://akios.ai" target="_blank" rel="noopener">AKIOS</a>
+          </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">EnforceCore</div>
+        <div class="footer-brand-desc">Runtime enforcement for AI agents.</div>
+        <div class="flex gap-3" style="margin-top: var(--space-3);">
+          <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://discord.gg/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="Discord">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.946 2.419-2.157 2.419z"/></svg>
+          </a>
+          <a href="https://x.com/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="X (Twitter)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Documentation</div>
+        <ul>
+          <li><a href="./docs/getting-started/introduction.html">Introduction</a></li>
+          <li><a href="./docs/getting-started/quickstart.html">Quickstart</a></li>
+          <li><a href="./docs/reference/api/enforcer.html">API Reference</a></li>
+          <li><a href="./docs/concepts/architecture.html">Architecture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <ul>
+          <li><a href="./blog/">Blog</a></li>
+          <li><a href="./case-studies/">Use Cases</a></li>
+          <li><a href="./community.html">Community</a></li>
+          <li><a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="./legal.html">Overview</a></li>
+          <li><a href="./terms.html">Terms of Use</a></li>
+          <li><a href="./privacy.html">Privacy Policy</a></li>
+          <li><a href="./cookies.html">Cookies</a></li>
+          <li><a href="./disclosure.html">Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EnforceCore Contributors · <a href="https://github.com/akios-ai/EnforceCore/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0</a></span>
+    </div>
+  </div>
+</footer>
+
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/search.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mainNav = document.getElementById('main-nav');
+      if (menuBtn && mainNav) {
+        menuBtn.addEventListener('click', () => {
+          mainNav.classList.toggle('open');
+          document.body.classList.toggle('mobile-nav-open');
+          const isOpen = mainNav.classList.contains('open');
+          menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+          menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          menuBtn.innerHTML = isOpen
+            ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+            : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+        });
+
+        // Close menu when a nav link is clicked
+        mainNav.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            document.body.classList.remove('mobile-nav-open');
+            menuBtn.setAttribute('aria-label', 'Open menu');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+          });
+        });
+      }
+
+      // Tab switching
+      document.querySelectorAll('.code-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.tab;
+          const win = btn.closest('.code-window');
+          if (!win) return;
+          win.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+          win.querySelectorAll('.code-content').forEach(c => c.classList.add('hidden'));
+          btn.classList.add('active');
+          const pane = document.getElementById('tab-' + tab);
+          if (pane) pane.classList.remove('hidden');
+        });
+      });
+
+      // Install command copy
+      const installCopyBtn = document.getElementById('install-copy');
+      if (installCopyBtn) {
+        installCopyBtn.addEventListener('click', () => {
+          const cmd = document.getElementById('install-cmd')?.innerText?.trim();
+          if (!cmd) return;
+          navigator.clipboard.writeText(cmd).then(() => {
+            installCopyBtn.style.color = '#22d3ee';
+            setTimeout(() => { installCopyBtn.style.color = ''; }, 2000);
+          });
+        });
+      }
+
+    });
+
+    // Copy buttons for code blocks
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre').forEach(pre => {
+        if (pre.closest('.code-block-wrapper')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.innerText = 'Copy';
+        btn.onclick = () => {
+          navigator.clipboard.writeText(pre.innerText).then(() => {
+            btn.innerText = 'Copied!';
+            setTimeout(() => btn.innerText = 'Copy', 2000);
+          });
+        };
+        wrapper.appendChild(btn);
+      });
+    });
+  </script>
+
+
+</body>
+</html>

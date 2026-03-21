@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://enforcecore.dev/sitemap.xml

@@ -1,0 +1,834 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnforceCore — Technical Architecture — EnforceCore Docs</title>
+    <meta name="description" content="Design Philosophy EnforceCore is designed around one core idea: enforcement at the call boundary . Every time an agent system makes an external call — invoking...">
+    <link rel="canonical" href="https://enforcecore.dev/docs/concepts/architecture/">
+    <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="#docs-main" class="skip-link">Skip to content</a>
+    <header>
+  <div class="container header-inner">
+
+    <a href="../../" class="logo-link">
+      <img src="../../assets/img/logo-enforcecore-light-x.svg" alt="EnforceCore" class="logo-light header-logo" width="61" height="44">
+      <img src="../../assets/img/logo-enforcecore-dark-x.svg" alt="EnforceCore" class="logo-dark header-logo" width="61" height="44">
+    </a>
+
+    <nav id="main-nav">
+      <div class="nav-links">
+        <a href="../../docs/index.html" class="nav-link">Documentation</a>
+        <a href="../../blog/" class="nav-link">Blog</a>
+        <a href="../../case-studies/" class="nav-link">Use Cases</a>
+        <a href="../../community.html" class="nav-link">Community</a>
+      </div>
+
+      <div class="nav-utils">
+        <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-link nav-github-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <div class="search-container">
+          <div class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <input type="text" id="search-input" placeholder="Search..." aria-label="Search documentation">
+          <div class="search-shortcut">⌘K</div>
+          <div id="search-results" class="search-results"></div>
+        </div>
+        <button id="theme-toggle" class="nav-icon-btn" aria-label="Toggle theme">
+          <svg id="theme-icon-sun" class="theme-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="theme-icon-moon" class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+  </div>
+</header>
+
+
+    <button class="docs-sidebar-toggle" id="docs-sidebar-toggle" aria-label="Toggle navigation">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span>Menu</span>
+    </button>
+    <div class="docs-sidebar-backdrop" id="docs-sidebar-backdrop"></div>
+
+    <div class="page">
+        <div class="docs-wrapper">
+            
+            <aside class="docs-sidebar" id="docs-sidebar">
+                <nav class="docs-nav">
+                    <div class="section-title">Getting Started</div>
+                    <ul>
+                        <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+                        <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+                    </ul>
+
+                    <div class="section-title">Concepts</div>
+                    <ul>
+                        <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+                        <li><a href="../../docs/concepts/policy-engine.html">Policy Engine</a></li>
+                        <li><a href="../../docs/concepts/security-model.html">Security Model</a></li>
+                        <li><a href="../../docs/concepts/defense-in-depth.html">Defense in Depth</a></li>
+                        <li><a href="../../docs/concepts/technology.html">Technology Stack</a></li>
+                    </ul>
+
+                    <div class="section-title">Guides</div>
+                    <ul>
+                        <li><a href="../../docs/guides/integrations.html">Integrations</a></li>
+                        <li><a href="../../docs/guides/development.html">Developer Guide</a></li>
+                        <li><a href="../../docs/guides/tool-selection.html">Tool Selection</a></li>
+                    </ul>
+
+                    <div class="section-title">Reference</div>
+                    <ul>
+                        <li><a href="../../docs/reference/api/enforcer.html">Enforcer API</a></li>
+                        <li><a href="../../docs/reference/api/auditor.html">Auditor API</a></li>
+                        <li><a href="../../docs/reference/api/guard.html">Guard API</a></li>
+                        <li><a href="../../docs/reference/api/redactor.html">Redactor API</a></li>
+                        <li><a href="../../docs/reference/compliance/gdpr.html">GDPR</a></li>
+                        <li><a href="../../docs/reference/compliance/eu-ai-act.html">EU AI Act</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="docs-content" id="docs-main">
+                <h1 id="enforcecore-technical-architecture">EnforceCore — Technical Architecture</h1><h2 id="design-philosophy"><a class="heading-anchor" href="#design-philosophy" aria-label="Link to Design Philosophy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Design Philosophy</h2><p>EnforceCore is designed around one core idea: <strong>enforcement at the call boundary</strong>.</p>
+<p>Every time an agent system makes an external call — invoking a tool, hitting an API, reading a file, opening a network connection, spawning a process — that call passes through an enforcement point. At that point, policies are evaluated, data is redacted, resources are constrained, and an audit entry is recorded.</p>
+<p>This is fundamentally different from:</p>
+<ul>
+<li><strong>Prompt-level guardrails</strong> — which operate inside the LLM and can be bypassed</li>
+<li><strong>Output filters</strong> — which operate after the damage is already done</li>
+<li><strong>Network firewalls</strong> — which operate at the wrong granularity for agent tool calls</li>
+</ul>
+<h2 id="high-level-architecture"><a class="heading-anchor" href="#high-level-architecture" aria-label="Link to High-Level Architecture"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>High-Level Architecture</h2><div class="code-block-wrapper"><pre><code class="hljs language-plaintext">flowchart TB
+    subgraph APP[&quot;Agent Application Layer&quot;]
+        direction LR
+        A1[&quot;LangGraph&quot;] ~~~ A2[&quot;CrewAI&quot;] ~~~ A3[&quot;AutoGen&quot;] ~~~ A4[&quot;Custom Agent&quot;]
+    end
+
+    APP --&gt;|&quot;tool_call(args)&quot;| API
+
+    subgraph API[&quot;EnforceCore Public API&quot;]
+        DEC[&quot;@enforce(policy=&#x27;my_policy.yaml&#x27;)&lt;br/&gt;async def call_tool(args): ...&quot;]
+    end
+
+    API --&gt; ENF
+
+    subgraph ENF[&quot;Enforcer (Coordinator)&quot;]
+        direction TB
+        S1[&quot;1. Load &amp; resolve policy&quot;]
+        S2[&quot;2. Run pre-call checks&quot;]
+        S3[&quot;3. Apply redaction to inputs&quot;]
+        S4[&quot;4. Set up resource constraints&quot;]
+        S5[&quot;5. Execute call inside sandbox&quot;]
+        S6[&quot;6. Apply redaction to outputs&quot;]
+        S7[&quot;7. Run post-call checks&quot;]
+        S8[&quot;8. Record audit entry&quot;]
+        S9[&quot;9. Return result or raise violation&quot;]
+        S1 --&gt; S2 --&gt; S3 --&gt; S4 --&gt; S5 --&gt; S6 --&gt; S7 --&gt; S8 --&gt; S9
+    end
+
+    ENF --&gt; PE[&quot;Policy Engine&quot;]
+    ENF --&gt; RD[&quot;Redactor&quot;]
+    ENF --&gt; AU[&quot;Auditor (Merkle)&quot;]
+    ENF --&gt; GU[&quot;Guard (Resource + Kill)&quot;]
+
+    style APP fill:#e3f2fd,stroke:#1565c0
+    style API fill:#e8f5e9,stroke:#2e7d32
+    style ENF fill:#fff3e0,stroke:#e65100
+    style PE fill:#f3e5f5,stroke:#7b1fa2
+    style RD fill:#f3e5f5,stroke:#7b1fa2
+    style AU fill:#f3e5f5,stroke:#7b1fa2
+    style GU fill:#f3e5f5,stroke:#7b1fa2</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h2 id="core-components"><a class="heading-anchor" href="#core-components" aria-label="Link to Core Components"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Core Components</h2><h3 id="enforcement-data-flow"><a class="heading-anchor" href="#enforcement-data-flow" aria-label="Link to Enforcement Data Flow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Enforcement Data Flow</h3><p>The following diagram shows the complete flow of an enforced tool call,
+including threat boundaries:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">sequenceDiagram
+    participant Agent as Agent / Framework
+    participant Enforcer as Enforcer
+    participant Policy as Policy Engine
+    participant Redactor as Redactor
+    participant Guard as Guard
+    participant Auditor as Auditor
+    participant Tool as External Tool
+
+    Agent-&gt;&gt;Enforcer: tool_call(name, args)
+
+    rect rgb(255, 235, 238)
+        Note over Enforcer,Policy: Pre-call enforcement
+        Enforcer-&gt;&gt;Policy: evaluate_pre(name, args)
+        Policy--&gt;&gt;Enforcer: PreCallResult(allow/deny)
+        alt Denied
+            Enforcer--&gt;&gt;Agent: raise ToolDeniedError
+        end
+    end
+
+    rect rgb(232, 245, 233)
+        Note over Enforcer,Redactor: Input redaction
+        Enforcer-&gt;&gt;Redactor: redact(args)
+        Redactor--&gt;&gt;Enforcer: sanitized_args
+    end
+
+    rect rgb(227, 242, 253)
+        Note over Enforcer,Guard: Resource setup
+        Enforcer-&gt;&gt;Guard: check_limits(cost, rate)
+        Guard--&gt;&gt;Enforcer: ok / raise
+    end
+
+    Enforcer-&gt;&gt;Tool: execute(sanitized_args)
+    Tool--&gt;&gt;Enforcer: raw_result
+
+    rect rgb(232, 245, 233)
+        Note over Enforcer,Redactor: Output redaction
+        Enforcer-&gt;&gt;Redactor: redact(result)
+        Redactor--&gt;&gt;Enforcer: sanitized_result
+    end
+
+    rect rgb(255, 243, 224)
+        Note over Enforcer,Auditor: Audit recording
+        Enforcer-&gt;&gt;Auditor: record(entry)
+        Auditor--&gt;&gt;Enforcer: merkle_hash
+    end
+
+    Enforcer--&gt;&gt;Agent: sanitized_result</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h3 id="1-enforcer-coordinator"><a class="heading-anchor" href="#1-enforcer-coordinator" aria-label="Link to 1. Enforcer (Coordinator)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>1. Enforcer (Coordinator)</h3><p>The central orchestrator. It intercepts external calls, coordinates all protection components, and makes the allow/block/redact decision.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li>Provide the <code>@enforce()</code> decorator and <code>enforce()</code> async context manager</li>
+<li>Coordinate the execution pipeline (pre-call → execute → post-call)</li>
+<li>Handle both sync and async call patterns</li>
+<li>Aggregate decisions from all components</li>
+<li>Raise <code>EnforcementViolation</code> on policy breach</li>
+</ul>
+<p><strong>Critical design decision — Async-first:</strong>
+Modern agent frameworks (LangGraph, AutoGen, etc.) are async-first. EnforceCore MUST support both sync and async from day one. The <code>Enforcer</code> internally runs async and provides sync wrappers.</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-python"><span class="hljs-comment"># Both patterns work</span>
+<span class="hljs-meta">@enforce(<span class="hljs-params">policy=<span class="hljs-string">&quot;policy.yaml&quot;</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">sync_tool</span>(<span class="hljs-params">args</span>):
+    ...
+
+<span class="hljs-meta">@enforce(<span class="hljs-params">policy=<span class="hljs-string">&quot;policy.yaml&quot;</span></span>)</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">async_tool</span>(<span class="hljs-params">args</span>):
+    ...</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h3 id="2-policy-engine"><a class="heading-anchor" href="#2-policy-engine" aria-label="Link to 2. Policy Engine"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>2. Policy Engine</h3><p>Loads, validates, and evaluates declarative policies. Policies define what is allowed, denied, and how violations should be handled.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li>Load policies from YAML files or Python objects</li>
+<li>Validate policies against a Pydantic schema</li>
+<li>Evaluate pre-call conditions (before execution)</li>
+<li>Evaluate post-call conditions (after execution)</li>
+<li>Support policy composition (inherit, override, merge)</li>
+</ul>
+<p><strong>Policy structure (YAML):</strong></p>
+<div class="code-block-wrapper"><pre><code class="hljs language-yaml"><span class="hljs-attr">name:</span> <span class="hljs-string">&quot;default-agent-policy&quot;</span>
+<span class="hljs-attr">version:</span> <span class="hljs-string">&quot;1.0&quot;</span>
+
+<span class="hljs-attr">rules:</span>
+  <span class="hljs-attr">allowed_tools:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;web_search&quot;</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;read_file&quot;</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;calculator&quot;</span>
+
+  <span class="hljs-attr">denied_tools:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;execute_shell&quot;</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;send_email&quot;</span>
+
+  <span class="hljs-attr">pii_redaction:</span>
+    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">categories:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">email</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">phone</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">ssn</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">credit_card</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">ip_address</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">person_name</span>
+
+  <span class="hljs-attr">resource_limits:</span>
+    <span class="hljs-attr">max_call_duration_seconds:</span> <span class="hljs-number">30</span>
+    <span class="hljs-attr">max_memory_mb:</span> <span class="hljs-number">256</span>
+    <span class="hljs-attr">max_cost_usd:</span> <span class="hljs-number">1.00</span>
+
+  <span class="hljs-attr">network:</span>
+    <span class="hljs-attr">allowed_domains:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;api.openai.com&quot;</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;*.wikipedia.org&quot;</span>
+    <span class="hljs-attr">deny_all_other:</span> <span class="hljs-literal">true</span>
+
+  <span class="hljs-attr">post_call:</span>
+    <span class="hljs-attr">max_output_size_bytes:</span> <span class="hljs-number">1048576</span>  <span class="hljs-comment"># 1MB</span>
+    <span class="hljs-attr">redact_output:</span> <span class="hljs-literal">true</span>
+
+<span class="hljs-attr">on_violation:</span> <span class="hljs-string">&quot;block&quot;</span>  <span class="hljs-comment"># block | log | redact</span></code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p><strong>Design note:</strong> Policies are Pydantic models internally, giving us validation, serialization, and IDE autocompletion for free.</p>
+<h3 id="3-redactor"><a class="heading-anchor" href="#3-redactor" aria-label="Link to 3. Redactor"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>3. Redactor</h3><p>Real-time PII and sensitive data redaction on both inputs and outputs of enforced calls.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li>Detect PII in text (emails, phone numbers, SSNs, credit cards, IP addresses, names)</li>
+<li>Redact detected PII before the call (input protection)</li>
+<li>Redact detected PII in the response (output protection)</li>
+<li>Support configurable redaction strategies (mask, hash, remove, placeholder)</li>
+<li>Log redaction events for audit</li>
+</ul>
+<p><strong>Implementation:</strong>
+Uses a pure regex-based detection engine with 5 compiled PII category patterns. Designed for zero external dependencies and sub-millisecond overhead.</p>
+<p><strong>Performance (benchmarked):</strong>
+Regex-based redaction is extremely fast:</p>
+<ul>
+<li>Policy evaluation: ~0.01ms</li>
+<li>PII redaction (short input): ~0.028ms</li>
+<li>PII redaction (~2KB input): ~0.129ms</li>
+<li>Audit entry creation: ~0.01ms</li>
+<li>Full E2E overhead: ~0.056ms</li>
+</ul>
+<p><strong>Total realistic overhead: &lt; 1ms</strong> — negligible compared to typical tool call latency (100ms-10s).</p>
+<h3 id="4-auditor-merkle"><a class="heading-anchor" href="#4-auditor-merkle" aria-label="Link to 4. Auditor (Merkle)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>4. Auditor (Merkle)</h3><p>Produces tamper-proof, cryptographically verifiable audit trails for every enforced call.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li>Generate a signed audit entry for every enforced call (inputs, outputs, policy, decision, timing)</li>
+<li>Chain entries using a Merkle tree (each entry includes the hash of the previous)</li>
+<li>Support verification (prove no entries were modified or deleted)</li>
+<li>Write to JSONL files (v1.0) with pluggable storage backends later</li>
+</ul>
+<p><strong>Audit entry structure:</strong></p>
+<div class="code-block-wrapper"><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;uuid-v4&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2026-02-20T10:30:00Z&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;call&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;tool&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;web_search&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;args_hash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sha256:abc...&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;result_hash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sha256:def...&quot;</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;policy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;default-agent-policy&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1.0&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;decision&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;allowed&quot;</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;redaction&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;input_redactions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;output_redactions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;timing&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;enforcement_overhead_ms&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">12.3</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;call_duration_ms&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">450.1</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;merkle&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;entry_hash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sha256:ghi...&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;previous_hash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sha256:jkl...&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;tree_root&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sha256:mno...&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h3 id="5-guard-resource-killswitch"><a class="heading-anchor" href="#5-guard-resource-killswitch" aria-label="Link to 5. Guard (Resource + KillSwitch)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>5. Guard (Resource + KillSwitch)</h3><p>Constrains the resources available to a tool call and provides hard termination on violations.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li>Enforce time limits (call duration)</li>
+<li>Enforce memory limits</li>
+<li>Enforce cost limits (cumulative across calls)</li>
+<li>Hard kill on limit breach (signal-based termination)</li>
+</ul>
+<p><strong>⚠️ Critical architecture decision — Cross-platform strategy:</strong></p>
+<p>The original conversation proposed seccomp-bpf and cgroups v2 as core components. <strong>This is problematic because these are Linux-only.</strong></p>
+<p>Most researchers and developers work on macOS (and some on Windows). If the Guard component only works on Linux, adoption will be severely limited.</p>
+<p><strong>Our approach for v1.0:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Linux</th>
+<th>macOS</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Time limits</td>
+<td><code>signal.alarm</code> + thread timeout</td>
+<td><code>signal.alarm</code> + thread timeout</td>
+<td>Thread timeout</td>
+</tr>
+<tr>
+<td>Memory limits</td>
+<td>cgroups v2 (if available)</td>
+<td><code>resource.setrlimit</code></td>
+<td>Process monitoring</td>
+</tr>
+<tr>
+<td>CPU limits</td>
+<td>cgroups v2 (if available)</td>
+<td><code>resource.setrlimit</code></td>
+<td>Process monitoring</td>
+</tr>
+<tr>
+<td>Syscall filtering</td>
+<td>seccomp-bpf (optional extra)</td>
+<td>N/A (logged warning)</td>
+<td>N/A (logged warning)</td>
+</tr>
+<tr>
+<td>Process isolation</td>
+<td>Optional (via subprocess)</td>
+<td>Optional (via subprocess)</td>
+<td>Optional (via subprocess)</td>
+</tr>
+</tbody></table>
+</div><p><strong>Design:</strong> The Guard uses a <code>Platform</code> abstraction that auto-detects the OS and applies the strongest available constraints. On Linux with root/cgroup access, you get the full hardened sandbox. On macOS, you get time/memory limits via POSIX signals. On any platform, you always get the Enforcer + Policy + Redactor + Auditor — the security-critical parts.</p>
+<p>Advanced Linux hardening (seccomp, cgroups) is available as an optional <code>enforcecore[linux]</code> extra.</p>
+<h3 id="6-integration-layer"><a class="heading-anchor" href="#6-integration-layer" aria-label="Link to 6. Integration Layer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>6. Integration Layer</h3><p>Provides clean adapters for popular agent frameworks.</p>
+<p><strong>Design:</strong> The integration layer is NOT a hard dependency. It provides thin adapter patterns that translate framework-specific tool call mechanisms into EnforceCore&#39;s enforcement API.</p>
+<p><strong>Supported in v1.0.x:</strong></p>
+<ul>
+<li><strong>Plain Python</strong> — <code>@enforce()</code> decorator on any function</li>
+<li><strong>LangGraph</strong> — Custom tool wrapper</li>
+<li><strong>CrewAI</strong> — Tool decorator adapter</li>
+<li><strong>AutoGen</strong> — Function registration wrapper</li>
+</ul>
+<p>Each adapter is ~20-50 lines of code. The examples directory provides copy-paste-ready integration patterns.</p>
+<h2 id="module-dependency-graph"><a class="heading-anchor" href="#module-dependency-graph" aria-label="Link to Module Dependency Graph"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Module Dependency Graph</h2><div class="code-block-wrapper"><pre><code class="hljs language-plaintext">graph LR
+    subgraph core[&quot;enforcecore/core/&quot;]
+        TYPES[&quot;types.py&lt;br/&gt;&lt;em&gt;Shared types, exceptions&lt;/em&gt;&quot;]
+        POLICY[&quot;policy.py&lt;br/&gt;&lt;em&gt;Policy models + engine&lt;/em&gt;&quot;]
+        CONFIG[&quot;config.py&lt;br/&gt;&lt;em&gt;Global configuration&lt;/em&gt;&quot;]
+        RULES[&quot;rules.py&lt;br/&gt;&lt;em&gt;Rule evaluation&lt;/em&gt;&quot;]
+        ENFORCER[&quot;enforcer.py&lt;br/&gt;&lt;em&gt;Main coordinator&lt;/em&gt;&quot;]
+    end
+
+    subgraph redactor[&quot;enforcecore/redactor/&quot;]
+        REDACT_ENG[&quot;engine.py&lt;br/&gt;&lt;em&gt;PII detection + redaction&lt;/em&gt;&quot;]
+        PATTERNS[&quot;patterns.py&lt;br/&gt;&lt;em&gt;Regex patterns&lt;/em&gt;&quot;]
+        SECRETS[&quot;secrets.py&lt;br/&gt;&lt;em&gt;Secret scanning&lt;/em&gt;&quot;]
+        UNICODE[&quot;unicode.py&lt;br/&gt;&lt;em&gt;Unicode normalization&lt;/em&gt;&quot;]
+    end
+
+    subgraph auditor[&quot;enforcecore/auditor/&quot;]
+        MERKLE[&quot;merkle.py&lt;br/&gt;&lt;em&gt;Merkle tree&lt;/em&gt;&quot;]
+        LOGGER[&quot;logger.py&lt;br/&gt;&lt;em&gt;Audit log writer&lt;/em&gt;&quot;]
+        BACKENDS[&quot;backends.py&lt;br/&gt;&lt;em&gt;Storage backends&lt;/em&gt;&quot;]
+        ROTATION[&quot;rotation.py&lt;br/&gt;&lt;em&gt;Log rotation&lt;/em&gt;&quot;]
+    end
+
+    subgraph guard[&quot;enforcecore/guard/&quot;]
+        GUARD_ENG[&quot;engine.py&lt;br/&gt;&lt;em&gt;Resource limits&lt;/em&gt;&quot;]
+        NETWORK[&quot;network.py&lt;br/&gt;&lt;em&gt;Domain enforcement&lt;/em&gt;&quot;]
+        RATELIMIT[&quot;ratelimit.py&lt;br/&gt;&lt;em&gt;Rate limiting&lt;/em&gt;&quot;]
+    end
+
+    subgraph plugins[&quot;enforcecore/plugins/&quot;]
+        HOOKS[&quot;hooks.py&lt;br/&gt;&lt;em&gt;Lifecycle hooks&lt;/em&gt;&quot;]
+        WEBHOOKS[&quot;webhooks.py&lt;br/&gt;&lt;em&gt;Webhook dispatch&lt;/em&gt;&quot;]
+    end
+
+    subgraph telemetry[&quot;enforcecore/telemetry/&quot;]
+        INSTRUMENTOR[&quot;instrumentor.py&lt;br/&gt;&lt;em&gt;OpenTelemetry&lt;/em&gt;&quot;]
+        METRICS[&quot;metrics.py&lt;br/&gt;&lt;em&gt;Metrics recording&lt;/em&gt;&quot;]
+    end
+
+    ENFORCER --&gt; POLICY
+    ENFORCER --&gt; REDACT_ENG
+    ENFORCER --&gt; MERKLE
+    ENFORCER --&gt; GUARD_ENG
+    ENFORCER --&gt; RULES
+    ENFORCER --&gt; HOOKS
+    POLICY --&gt; TYPES
+    RULES --&gt; TYPES
+    CONFIG -.-&gt; TYPES
+    REDACT_ENG --&gt; PATTERNS
+    REDACT_ENG --&gt; SECRETS
+    REDACT_ENG --&gt; UNICODE
+    LOGGER --&gt; MERKLE
+    LOGGER --&gt; BACKENDS
+    LOGGER --&gt; ROTATION
+    INSTRUMENTOR --&gt; METRICS
+
+    style core fill:#e3f2fd,stroke:#1565c0
+    style redactor fill:#e8f5e9,stroke:#2e7d32
+    style auditor fill:#fff3e0,stroke:#e65100
+    style guard fill:#fce4ec,stroke:#c62828
+    style plugins fill:#f3e5f5,stroke:#7b1fa2
+    style telemetry fill:#e0f2f1,stroke:#00695c</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h2 id="error-handling-strategy"><a class="heading-anchor" href="#error-handling-strategy" aria-label="Link to Error Handling Strategy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Error Handling Strategy</h2><p>EnforceCore uses a clear exception hierarchy:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">classDiagram
+    class EnforceCoreError {
+        &lt;&lt;base&gt;&gt;
+    }
+    class PolicyError
+    class PolicyLoadError
+    class PolicyValidationError
+    class PolicyEvaluationError
+    class EnforcementViolation
+    class ToolDeniedError
+    class DomainDeniedError
+    class CostLimitError
+    class ResourceLimitError
+    class ContentViolationError
+    class RedactionError
+    class AuditError
+    class GuardError
+
+    EnforceCoreError &lt;|-- PolicyError
+    EnforceCoreError &lt;|-- EnforcementViolation
+    EnforceCoreError &lt;|-- RedactionError
+    EnforceCoreError &lt;|-- AuditError
+    EnforceCoreError &lt;|-- GuardError
+    PolicyError &lt;|-- PolicyLoadError
+    PolicyError &lt;|-- PolicyValidationError
+    PolicyError &lt;|-- PolicyEvaluationError
+    EnforcementViolation &lt;|-- ToolDeniedError
+    EnforcementViolation &lt;|-- DomainDeniedError
+    EnforcementViolation &lt;|-- CostLimitError
+    EnforcementViolation &lt;|-- ResourceLimitError
+    EnforcementViolation &lt;|-- ContentViolationError</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p><strong>Key principle:</strong> Enforcement failures should <strong>always fail closed</strong> (block the call), never fail open (let it through). If the Policy Engine crashes, the call is blocked. If the Redactor fails, the call is blocked. Safety by default.</p>
+<h2 id="thread-safety-concurrency"><a class="heading-anchor" href="#thread-safety-concurrency" aria-label="Link to Thread Safety &amp; Concurrency"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Thread Safety &amp; Concurrency</h2><ul>
+<li>The <code>PolicyEngine</code> is thread-safe (policies are immutable after loading)</li>
+<li>The <code>Enforcer</code> supports concurrent async calls (no shared mutable state per call)</li>
+<li>The <code>Auditor</code> uses a thread-safe append-only log with file locking</li>
+<li>The <code>Guard</code> resource tracking is per-call, not global (except cumulative cost, which uses an atomic counter)</li>
+</ul>
+<h2 id="performance-targets-benchmarked"><a class="heading-anchor" href="#performance-targets-benchmarked" aria-label="Link to Performance Targets (Benchmarked)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Performance Targets (Benchmarked)</h2><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Measured</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Policy evaluation</td>
+<td>&lt; 0.1ms</td>
+<td>Pydantic model validation + rule matching</td>
+</tr>
+<tr>
+<td>PII redaction (short input)</td>
+<td>~0.028ms</td>
+<td>Compiled regex patterns</td>
+</tr>
+<tr>
+<td>PII redaction (~2KB input)</td>
+<td>~0.129ms</td>
+<td>Scales linearly with input length</td>
+</tr>
+<tr>
+<td>Audit entry creation</td>
+<td>&lt; 0.1ms</td>
+<td>SHA-256 hash + JSONL append</td>
+</tr>
+<tr>
+<td><strong>Full E2E overhead</strong></td>
+<td><strong>~0.056ms</strong></td>
+<td><strong>Negligible vs tool call latency (100ms-10s)</strong></td>
+</tr>
+</tbody></table>
+</div><p>Benchmarks are published with every release. See the README for current numbers.</p>
+<h2 id="threat-boundary-model"><a class="heading-anchor" href="#threat-boundary-model" aria-label="Link to Threat Boundary Model"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Threat Boundary Model</h2><div class="code-block-wrapper"><pre><code class="hljs language-plaintext">graph TB
+    subgraph UNTRUSTED[&quot;🔴 Untrusted Zone&quot;]
+        LLM[&quot;LLM Output&lt;br/&gt;(stochastic, injectable)&quot;]
+        USER[&quot;User Input&lt;br/&gt;(prompt injection)&quot;]
+        TOOL_OUT[&quot;Tool Responses&lt;br/&gt;(external, uncontrolled)&quot;]
+    end
+
+    subgraph BOUNDARY[&quot;🟡 Enforcement Boundary — EnforceCore&quot;]
+        direction TB
+        POLICY_CHECK[&quot;Policy Engine&lt;br/&gt;Allow / Deny&quot;]
+        REDACT_IN[&quot;Input Redaction&lt;br/&gt;PII removal&quot;]
+        REDACT_OUT[&quot;Output Redaction&lt;br/&gt;PII removal&quot;]
+        GUARD_CHECK[&quot;Guard&lt;br/&gt;Cost / Rate / Resource&quot;]
+        AUDIT[&quot;Audit Trail&lt;br/&gt;Merkle chain&quot;]
+    end
+
+    subgraph TRUSTED[&quot;🟢 Trusted Zone&quot;]
+        TOOLS[&quot;Authorized Tools&quot;]
+        DB[&quot;Databases&quot;]
+        APIS[&quot;External APIs&lt;br/&gt;(allow-listed domains)&quot;]
+    end
+
+    LLM --&gt;|&quot;tool_call&quot;| POLICY_CHECK
+    USER --&gt;|&quot;args&quot;| REDACT_IN
+    POLICY_CHECK --&gt; GUARD_CHECK
+    REDACT_IN --&gt; GUARD_CHECK
+    GUARD_CHECK --&gt; TOOLS
+    TOOLS --&gt; REDACT_OUT
+    TOOL_OUT --&gt; REDACT_OUT
+    REDACT_OUT --&gt; AUDIT
+    AUDIT --&gt;|&quot;sanitized result&quot;| LLM
+    TOOLS --&gt; DB
+    TOOLS --&gt; APIS
+
+    style UNTRUSTED fill:#ffebee,stroke:#c62828
+    style BOUNDARY fill:#fff8e1,stroke:#f57f17
+    style TRUSTED fill:#e8f5e9,stroke:#2e7d32</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><hr>
+<h2 id="security-layer-context"><a class="heading-anchor" href="#security-layer-context" aria-label="Link to Security-Layer Context"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Security-Layer Context</h2><p>EnforceCore operates at the <strong>application semantic layer</strong> — it understands
+tool calls, PII, cost budgets, and content rules. It does not replace
+kernel-level MAC (SELinux, AppArmor), syscall filtering (seccomp), or
+container isolation (Docker, gVisor). These are complementary layers in a
+defense-in-depth stack.</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">graph TB
+    subgraph &quot;Defense-in-Depth Stack&quot;
+        HW[&quot;🔒 Hardware — TPM · SGX&quot;]
+        OS[&quot;🐧 OS/Kernel — SELinux · AppArmor · seccomp&quot;]
+        CT[&quot;📦 Container — Docker · gVisor · Firecracker&quot;]
+        RT[&quot;⚙️ Runtime — EnforceCore&quot;]
+        PR[&quot;💬 Prompt — NeMo Guardrails · LlamaGuard&quot;]
+    end
+
+    HW --&gt; OS --&gt; CT --&gt; RT --&gt; PR
+
+    style RT fill:#2d7d46,stroke:#1a5c30,color:#fff</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p><strong>Scope boundary:</strong> EnforceCore enforces at the Python runtime boundary.
+It does not replace kernel-level MAC or container sandboxing. For production
+deployments, use EnforceCore inside a hardened container with OS-level
+enforcement enabled.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Catches</th>
+<th>Cannot Catch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OS/Kernel</td>
+<td>Unauthorized syscalls, file access</td>
+<td>Agent-level tool abuse, PII</td>
+</tr>
+<tr>
+<td>Container</td>
+<td>Process escape, resource exhaustion</td>
+<td>Tool-call semantics</td>
+</tr>
+<tr>
+<td><strong>EnforceCore</strong></td>
+<td><strong>Tool abuse, PII, cost, rate limits</strong></td>
+<td><strong>Kernel exploits, container escape</strong></td>
+</tr>
+<tr>
+<td>Prompt</td>
+<td>Injection, toxic output</td>
+<td>Agent actions after LLM output</td>
+</tr>
+</tbody></table>
+</div><p>See <a href="defense-in-depth.html">Defense-in-Depth Architecture</a> for full deployment
+guidance and <a href="../guides/tool-selection.html">Tool Selection Guide</a> for when to
+use each layer.</p>
+
+                
+                <nav class="docs-prev-next" aria-label="Page navigation">
+                    <a href="../../docs/getting-started/quickstart.html" class="docs-prev-next-link docs-prev"><span class="docs-prev-next-dir">&larr; Previous</span><span class="docs-prev-next-title">Quickstart</span></a>
+                    <a href="../../docs/concepts/policy-engine.html" class="docs-prev-next-link docs-next"><span class="docs-prev-next-dir">Next &rarr;</span><span class="docs-prev-next-title">Policy Engine</span></a>
+                </nav>
+            </main>
+        </div>
+    </div>
+
+    <footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">EnforceCore</div>
+        <div class="footer-brand-desc">Runtime enforcement for AI agents.</div>
+        <div class="flex gap-3" style="margin-top: var(--space-3);">
+          <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://discord.gg/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="Discord">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.946 2.419-2.157 2.419z"/></svg>
+          </a>
+          <a href="https://x.com/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="X (Twitter)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Documentation</div>
+        <ul>
+          <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+          <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+          <li><a href="../../docs/reference/api/enforcer.html">API Reference</a></li>
+          <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <ul>
+          <li><a href="../../blog/">Blog</a></li>
+          <li><a href="../../case-studies/">Use Cases</a></li>
+          <li><a href="../../community.html">Community</a></li>
+          <li><a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="../../legal.html">Overview</a></li>
+          <li><a href="../../terms.html">Terms of Use</a></li>
+          <li><a href="../../privacy.html">Privacy Policy</a></li>
+          <li><a href="../../cookies.html">Cookies</a></li>
+          <li><a href="../../disclosure.html">Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EnforceCore Contributors · <a href="https://github.com/akios-ai/EnforceCore/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0</a></span>
+    </div>
+  </div>
+</footer>
+
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/search.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mainNav = document.getElementById('main-nav');
+      if (menuBtn && mainNav) {
+        menuBtn.addEventListener('click', () => {
+          mainNav.classList.toggle('open');
+          document.body.classList.toggle('mobile-nav-open');
+          const isOpen = mainNav.classList.contains('open');
+          menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+          menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          menuBtn.innerHTML = isOpen
+            ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+            : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+        });
+
+        // Close menu when a nav link is clicked
+        mainNav.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            document.body.classList.remove('mobile-nav-open');
+            menuBtn.setAttribute('aria-label', 'Open menu');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+          });
+        });
+      }
+
+      // Tab switching
+      document.querySelectorAll('.code-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.tab;
+          const win = btn.closest('.code-window');
+          if (!win) return;
+          win.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+          win.querySelectorAll('.code-content').forEach(c => c.classList.add('hidden'));
+          btn.classList.add('active');
+          const pane = document.getElementById('tab-' + tab);
+          if (pane) pane.classList.remove('hidden');
+        });
+      });
+
+      // Install command copy
+      const installCopyBtn = document.getElementById('install-copy');
+      if (installCopyBtn) {
+        installCopyBtn.addEventListener('click', () => {
+          const cmd = document.getElementById('install-cmd')?.innerText?.trim();
+          if (!cmd) return;
+          navigator.clipboard.writeText(cmd).then(() => {
+            installCopyBtn.style.color = '#22d3ee';
+            setTimeout(() => { installCopyBtn.style.color = ''; }, 2000);
+          });
+        });
+      }
+
+    });
+
+    // Copy buttons for code blocks
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre').forEach(pre => {
+        if (pre.closest('.code-block-wrapper')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.innerText = 'Copy';
+        btn.onclick = () => {
+          navigator.clipboard.writeText(pre.innerText).then(() => {
+            btn.innerText = 'Copied!';
+            setTimeout(() => btn.innerText = 'Copy', 2000);
+          });
+        };
+        wrapper.appendChild(btn);
+      });
+    });
+  </script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+    (function() {
+      var blocks = document.querySelectorAll('pre code.language-mermaid');
+      if (blocks.length) {
+        blocks.forEach(function(el) {
+          var pre = el.parentElement;
+          var div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = el.textContent;
+          pre.replaceWith(div);
+        });
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'base',
+          themeVariables: {
+            primaryColor: isDark ? '#164e63' : '#ecfeff',
+            primaryBorderColor: '#06b6d4',
+            primaryTextColor: isDark ? '#fafafa' : '#18181b',
+            lineColor: '#06b6d4',
+            secondaryColor: isDark ? '#14532d' : '#f0fdf4',
+            tertiaryColor: isDark ? '#7f1d1d' : '#fef2f2',
+            background: isDark ? '#09090b' : '#ffffff',
+            mainBkg: isDark ? '#164e63' : '#ecfeff',
+            nodeBorder: '#06b6d4',
+            clusterBkg: isDark ? '#131316' : '#fafafa',
+            clusterBorder: isDark ? '#27272a' : '#e4e4e7',
+            titleColor: isDark ? '#fafafa' : '#18181b',
+            edgeLabelBackground: isDark ? '#131316' : '#ffffff'
+          }
+        });
+      }
+    })();
+    </script>
+    <script>
+        (function() {
+            var p = window.location.pathname.replace(/\/$/, '').replace(/\/index\.html$/, '');
+            document.querySelectorAll('.docs-nav a').forEach(function(link) {
+                var href = link.getAttribute('href');
+                var normalized = href.replace(/\/$/, '').replace(/\/index\.html$/, '').replace(/\.html$/, '');
+                if (p.endsWith(normalized) || p.endsWith(normalized.replace(/\.html$/, ''))) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Docs sidebar toggle
+            var toggle = document.getElementById('docs-sidebar-toggle');
+            var sidebar = document.getElementById('docs-sidebar');
+            var backdrop = document.getElementById('docs-sidebar-backdrop');
+            if (toggle && sidebar) {
+                toggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    if (backdrop) backdrop.classList.toggle('open');
+                });
+                if (backdrop) {
+                    backdrop.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        backdrop.classList.remove('open');
+                    });
+                }
+                sidebar.querySelectorAll('a').forEach(function(a) {
+                    a.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        if (backdrop) backdrop.classList.remove('open');
+                    });
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

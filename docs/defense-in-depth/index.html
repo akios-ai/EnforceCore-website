@@ -1,0 +1,723 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defense-in-Depth Architecture — EnforceCore Docs</title>
+    <meta name="description" content="How EnforceCore fits into a layered security deployment for AI agent systems. Overview Defense-in-depth is the principle that no single security layer is...">
+    <link rel="canonical" href="https://enforcecore.dev/docs/defense-in-depth/">
+    <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="#docs-main" class="skip-link">Skip to content</a>
+    <header>
+  <div class="container header-inner">
+
+    <a href="../../" class="logo-link">
+      <img src="../../assets/img/logo-enforcecore-light-x.svg" alt="EnforceCore" class="logo-light header-logo" width="61" height="44">
+      <img src="../../assets/img/logo-enforcecore-dark-x.svg" alt="EnforceCore" class="logo-dark header-logo" width="61" height="44">
+    </a>
+
+    <nav id="main-nav">
+      <div class="nav-links">
+        <a href="../../docs/index.html" class="nav-link">Documentation</a>
+        <a href="../../blog/" class="nav-link">Blog</a>
+        <a href="../../case-studies/" class="nav-link">Use Cases</a>
+        <a href="../../community.html" class="nav-link">Community</a>
+      </div>
+
+      <div class="nav-utils">
+        <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-link nav-github-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <div class="search-container">
+          <div class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <input type="text" id="search-input" placeholder="Search..." aria-label="Search documentation">
+          <div class="search-shortcut">⌘K</div>
+          <div id="search-results" class="search-results"></div>
+        </div>
+        <button id="theme-toggle" class="nav-icon-btn" aria-label="Toggle theme">
+          <svg id="theme-icon-sun" class="theme-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="theme-icon-moon" class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+  </div>
+</header>
+
+
+    <button class="docs-sidebar-toggle" id="docs-sidebar-toggle" aria-label="Toggle navigation">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span>Menu</span>
+    </button>
+    <div class="docs-sidebar-backdrop" id="docs-sidebar-backdrop"></div>
+
+    <div class="page">
+        <div class="docs-wrapper">
+            
+            <aside class="docs-sidebar" id="docs-sidebar">
+                <nav class="docs-nav">
+                    <div class="section-title">Getting Started</div>
+                    <ul>
+                        <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+                        <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+                    </ul>
+
+                    <div class="section-title">Concepts</div>
+                    <ul>
+                        <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+                        <li><a href="../../docs/concepts/policy-engine.html">Policy Engine</a></li>
+                        <li><a href="../../docs/concepts/security-model.html">Security Model</a></li>
+                        <li><a href="../../docs/concepts/defense-in-depth.html">Defense in Depth</a></li>
+                        <li><a href="../../docs/concepts/technology.html">Technology Stack</a></li>
+                    </ul>
+
+                    <div class="section-title">Guides</div>
+                    <ul>
+                        <li><a href="../../docs/guides/integrations.html">Integrations</a></li>
+                        <li><a href="../../docs/guides/development.html">Developer Guide</a></li>
+                        <li><a href="../../docs/guides/tool-selection.html">Tool Selection</a></li>
+                    </ul>
+
+                    <div class="section-title">Reference</div>
+                    <ul>
+                        <li><a href="../../docs/reference/api/enforcer.html">Enforcer API</a></li>
+                        <li><a href="../../docs/reference/api/auditor.html">Auditor API</a></li>
+                        <li><a href="../../docs/reference/api/guard.html">Guard API</a></li>
+                        <li><a href="../../docs/reference/api/redactor.html">Redactor API</a></li>
+                        <li><a href="../../docs/reference/compliance/gdpr.html">GDPR</a></li>
+                        <li><a href="../../docs/reference/compliance/eu-ai-act.html">EU AI Act</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="docs-content" id="docs-main">
+                <h1 id="defense-in-depth-architecture">Defense-in-Depth Architecture</h1><p>How EnforceCore fits into a layered security deployment for AI agent systems.</p>
+<hr>
+<h2 id="overview"><a class="heading-anchor" href="#overview" aria-label="Link to Overview"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Overview</h2><p>Defense-in-depth is the principle that no single security layer is sufficient.
+Each layer protects against threats that others cannot detect or prevent.
+EnforceCore occupies the <strong>runtime enforcement layer</strong> — it understands
+agent-level semantics (tool calls, PII, cost budgets) that OS-level
+mechanisms cannot see.</p>
+<p>This document describes:</p>
+<ol>
+<li>The five security layers relevant to AI agent deployments</li>
+<li>What each layer catches (and what it misses)</li>
+<li>Recommended deployment stacks</li>
+<li>Gap analysis: threats that fall between layers</li>
+</ol>
+<hr>
+<h2 id="the-five-layers"><a class="heading-anchor" href="#the-five-layers" aria-label="Link to The Five Layers"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>The Five Layers</h2><div class="code-block-wrapper"><pre><code class="hljs language-plaintext">graph TB
+    subgraph &quot;Defense-in-Depth Stack&quot;
+        A[&quot;🔒 Hardware Layer&lt;br/&gt;TPM · SGX · TrustZone&quot;]
+        B[&quot;🐧 OS/Kernel Layer&lt;br/&gt;SELinux · AppArmor · seccomp-bpf · Capabilities&quot;]
+        C[&quot;📦 Container Layer&lt;br/&gt;Docker · Kubernetes · gVisor · Firecracker&quot;]
+        D[&quot;⚙️ Runtime Layer&lt;br/&gt;EnforceCore&quot;]
+        E[&quot;💬 Prompt Layer&lt;br/&gt;NeMo Guardrails · LlamaGuard · Content filters&quot;]
+    end
+
+    A --&gt; B --&gt; C --&gt; D --&gt; E
+
+    style D fill:#2d7d46,stroke:#1a5c30,color:#fff</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h3 id="layer-1-hardware-root-of-trust"><a class="heading-anchor" href="#layer-1-hardware-root-of-trust" aria-label="Link to Layer 1: Hardware Root of Trust"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Layer 1: Hardware Root of Trust</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Components</strong></td>
+<td>TPM 2.0, Intel SGX/TDX, ARM TrustZone</td>
+</tr>
+<tr>
+<td><strong>Catches</strong></td>
+<td>Firmware tampering, physical key extraction, boot-chain attacks</td>
+</tr>
+<tr>
+<td><strong>Misses</strong></td>
+<td>Everything above the hardware boundary</td>
+</tr>
+<tr>
+<td><strong>EnforceCore interaction</strong></td>
+<td>None — hardware trust is assumed</td>
+</tr>
+</tbody></table>
+</div><h3 id="layer-2-oskernel-enforcement"><a class="heading-anchor" href="#layer-2-oskernel-enforcement" aria-label="Link to Layer 2: OS/Kernel Enforcement"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Layer 2: OS/Kernel Enforcement</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Components</strong></td>
+<td>SELinux, AppArmor, seccomp-bpf, Linux capabilities, namespaces</td>
+</tr>
+<tr>
+<td><strong>Catches</strong></td>
+<td>Unauthorized syscalls, file access outside policy, raw socket creation, privilege escalation via kernel exploits</td>
+</tr>
+<tr>
+<td><strong>Misses</strong></td>
+<td>Application-level semantics — cannot distinguish <code>write_file(&quot;report.pdf&quot;)</code> from <code>write_file(&quot;ransomware_payload&quot;)</code> because both are the same syscall</td>
+</tr>
+<tr>
+<td><strong>EnforceCore interaction</strong></td>
+<td>SELinux/AppArmor constrains the Python process. EnforceCore constrains what the agent does within that process. Complementary.</td>
+</tr>
+</tbody></table>
+</div><h3 id="layer-3-container-isolation"><a class="heading-anchor" href="#layer-3-container-isolation" aria-label="Link to Layer 3: Container Isolation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Layer 3: Container Isolation</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Components</strong></td>
+<td>Docker, Kubernetes Pods, gVisor, Firecracker, cgroups</td>
+</tr>
+<tr>
+<td><strong>Catches</strong></td>
+<td>Process escape, resource exhaustion (CPU/memory/disk), cross-container network access</td>
+</tr>
+<tr>
+<td><strong>Misses</strong></td>
+<td>Agent-level behavior within the container — a containerized agent can still call denied tools, leak PII, or exceed cost budgets</td>
+</tr>
+<tr>
+<td><strong>EnforceCore interaction</strong></td>
+<td>Containers provide the execution boundary. EnforceCore provides the policy boundary within that container.</td>
+</tr>
+</tbody></table>
+</div><h3 id="layer-4-runtime-enforcement-enforcecore"><a class="heading-anchor" href="#layer-4-runtime-enforcement-enforcecore" aria-label="Link to Layer 4: Runtime Enforcement (EnforceCore)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Layer 4: Runtime Enforcement (EnforceCore)</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Components</strong></td>
+<td>EnforceCore policy engine, PII redaction, audit trail, resource guard</td>
+</tr>
+<tr>
+<td><strong>Catches</strong></td>
+<td>Denied tool calls, PII in inputs/outputs, cost/rate limit violations, oversized outputs, tool-name spoofing, content rule violations</td>
+</tr>
+<tr>
+<td><strong>Misses</strong></td>
+<td>Threats below the Python runtime (kernel exploits, container escape), threats above it (prompt injection that doesn&#39;t result in tool calls)</td>
+</tr>
+<tr>
+<td><strong>EnforceCore interaction</strong></td>
+<td>This is EnforceCore.</td>
+</tr>
+</tbody></table>
+</div><h3 id="layer-5-promptcontent-layer"><a class="heading-anchor" href="#layer-5-promptcontent-layer" aria-label="Link to Layer 5: Prompt/Content Layer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Layer 5: Prompt/Content Layer</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Components</strong></td>
+<td>NeMo Guardrails, LlamaGuard, custom content filters</td>
+</tr>
+<tr>
+<td><strong>Catches</strong></td>
+<td>Prompt injection, toxic content, off-topic responses, jailbreak attempts</td>
+</tr>
+<tr>
+<td><strong>Misses</strong></td>
+<td>Agent actions — even if the LLM output is classified as &quot;safe,&quot; the resulting tool call may violate policy</td>
+</tr>
+<tr>
+<td><strong>EnforceCore interaction</strong></td>
+<td>Prompt filters clean LLM output before it reaches the agent. EnforceCore enforces what the agent does with that output.</td>
+</tr>
+</tbody></table>
+</div><hr>
+<h2 id="threat-coverage-matrix"><a class="heading-anchor" href="#threat-coverage-matrix" aria-label="Link to Threat Coverage Matrix"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Threat Coverage Matrix</h2><p>Which layer catches which threat:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Threat</th>
+<th>Hardware</th>
+<th>OS/Kernel</th>
+<th>Container</th>
+<th><strong>EnforceCore</strong></th>
+<th>Prompt</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Firmware rootkit</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Kernel privilege escalation</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Container escape</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Unauthorized syscall</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Denied tool invocation</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><strong>✅</strong></td>
+<td>❌</td>
+</tr>
+<tr>
+<td>PII exfiltration via tool</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><strong>✅</strong></td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Cost budget overrun</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><strong>✅</strong></td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Rate limit abuse</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><strong>✅</strong></td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Tool-name spoofing</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><strong>✅</strong></td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Oversized output exfiltration</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><strong>✅</strong></td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Multi-stage ransomware</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><strong>✅</strong></td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Prompt injection</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Toxic LLM output</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>CPU/memory exhaustion</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅*</td>
+<td>❌</td>
+</tr>
+</tbody></table>
+</div><p>* EnforceCore provides time limits and cost budgets. Containers provide
+hard resource limits (cgroups). Both are needed.</p>
+<hr>
+<h2 id="recommended-deployment-stacks"><a class="heading-anchor" href="#recommended-deployment-stacks" aria-label="Link to Recommended Deployment Stacks"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Recommended Deployment Stacks</h2><h3 id="minimum-viable-security"><a class="heading-anchor" href="#minimum-viable-security" aria-label="Link to Minimum Viable Security"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Minimum Viable Security</h3><p>For development and testing:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">Python process
+  └── EnforceCore (policy enforcement)</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p>Sufficient for: development, CI/CD testing, policy validation.</p>
+<p>Not sufficient for: production with untrusted agents.</p>
+<h3 id="standard-production"><a class="heading-anchor" href="#standard-production" aria-label="Link to Standard Production"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Standard Production</h3><p>For production deployments with trusted agents:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">Container (Docker / Kubernetes Pod)
+  ├── seccomp profile (block dangerous syscalls)
+  ├── Read-only filesystem
+  ├── Dropped capabilities (no CAP_NET_RAW, CAP_SYS_ADMIN)
+  └── Python process
+      └── EnforceCore (policy enforcement + audit trail)</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h3 id="high-security-production"><a class="heading-anchor" href="#high-security-production" aria-label="Link to High-Security Production"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>High-Security Production</h3><p>For production with untrusted agents or regulatory compliance:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">gVisor / Firecracker microVM
+  ├── AppArmor / SELinux profile
+  ├── seccomp-bpf (minimal syscall whitelist)
+  ├── Network policy (Kubernetes NetworkPolicy / Calico)
+  ├── Dropped all capabilities except CAP_NET_BIND_SERVICE
+  └── Container (Docker)
+      └── Python process
+          ├── EnforceCore (policy enforcement + audit trail)
+          └── NeMo Guardrails / LlamaGuard (prompt safety)</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h3 id="example-docker-configuration"><a class="heading-anchor" href="#example-docker-configuration" aria-label="Link to Example Docker Configuration"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Example Docker Configuration</h3><div class="code-block-wrapper"><pre><code class="hljs language-dockerfile"><span class="hljs-keyword">FROM</span> python:<span class="hljs-number">3.12</span>-slim
+
+<span class="hljs-comment"># Drop all capabilities, add only what&#x27;s needed</span>
+<span class="hljs-comment"># (handled at runtime via docker run --cap-drop=ALL)</span>
+
+<span class="hljs-comment"># Read-only root filesystem</span>
+<span class="hljs-comment"># (handled at runtime via docker run --read-only)</span>
+
+<span class="hljs-comment"># Install EnforceCore</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> pip install enforcecore</span>
+
+<span class="hljs-comment"># Non-root user</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> useradd -m agent</span>
+<span class="hljs-keyword">USER</span> agent
+
+<span class="hljs-keyword">COPY</span><span class="language-bash"> policy.yaml /app/policy.yaml</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> agent.py /app/agent.py</span>
+
+<span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;python&quot;</span>, <span class="hljs-string">&quot;/app/agent.py&quot;</span>]</span></code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><div class="code-block-wrapper"><pre><code class="hljs language-bash">docker run \
+  --cap-drop=ALL \
+  --read-only \
+  --tmpfs /tmp:noexec,nosuid,size=64m \
+  --security-opt=no-new-privileges \
+  --security-opt seccomp=enforcecore-seccomp.json \
+  --network=restricted \
+  my-agent:latest</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><hr>
+<h2 id="gap-analysis-what-falls-between-layers"><a class="heading-anchor" href="#gap-analysis-what-falls-between-layers" aria-label="Link to Gap Analysis: What Falls Between Layers"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Gap Analysis: What Falls Between Layers</h2><p>Even with all five layers active, some threats are difficult to catch:</p>
+<h3 id="1-side-channel-exfiltration"><a class="heading-anchor" href="#1-side-channel-exfiltration" aria-label="Link to 1. Side-Channel Exfiltration"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>1. Side-Channel Exfiltration</h3><p><strong>Threat:</strong> Agent encodes data in timing patterns, error messages, or resource
+usage instead of direct output.</p>
+<p><strong>Gap:</strong> EnforceCore inspects tool arguments and return values, not timing.
+OS-level tools don&#39;t understand agent semantics.</p>
+<p><strong>Mitigation:</strong> Anomaly detection integration point (EnforceCore provides
+hooks for custom detectors). Rate limiting reduces bandwidth of timing
+channels.</p>
+<h3 id="2-semantic-evasion"><a class="heading-anchor" href="#2-semantic-evasion" aria-label="Link to 2. Semantic Evasion"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>2. Semantic Evasion</h3><p><strong>Threat:</strong> Agent rephrases a blocked action in terms the policy doesn&#39;t
+recognize (e.g., using <code>update_file</code> instead of <code>write_file</code> when only
+<code>write_file</code> is denied).</p>
+<p><strong>Gap:</strong> Policy must enumerate all tool names. Semantic similarity checking
+is not deterministic.</p>
+<p><strong>Mitigation:</strong> Default-deny policy (only explicitly allowed tools can execute).
+Tool-name normalization. Deep inspection of tool arguments.</p>
+<h3 id="3-transitive-dependencies"><a class="heading-anchor" href="#3-transitive-dependencies" aria-label="Link to 3. Transitive Dependencies"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>3. Transitive Dependencies</h3><p><strong>Threat:</strong> An allowed tool internally calls a dangerous operation (e.g.,
+<code>search_web</code> internally makes HTTP requests to arbitrary URLs).</p>
+<p><strong>Gap:</strong> EnforceCore enforces at the tool-call boundary. It cannot see
+what happens inside a tool&#39;s implementation.</p>
+<p><strong>Mitigation:</strong> Network-level enforcement (firewall, seccomp). Tool
+implementation audits. Wrapping tools with EnforceCore-enforced sub-calls.</p>
+<h3 id="4-model-level-manipulation"><a class="heading-anchor" href="#4-model-level-manipulation" aria-label="Link to 4. Model-Level Manipulation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>4. Model-Level Manipulation</h3><p><strong>Threat:</strong> Adversarial prompt causes the LLM to produce subtly harmful
+outputs that don&#39;t trigger any tool call (e.g., biased medical advice).</p>
+<p><strong>Gap:</strong> EnforceCore only enforces tool calls. It does not evaluate LLM
+output quality or correctness.</p>
+<p><strong>Mitigation:</strong> Prompt-layer defenses (LlamaGuard, NeMo Guardrails).
+Human-in-the-loop for high-stakes outputs.</p>
+<hr>
+<h2 id="architecture-diagram-full-stack"><a class="heading-anchor" href="#architecture-diagram-full-stack" aria-label="Link to Architecture Diagram: Full Stack"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Architecture Diagram: Full Stack</h2><div class="code-block-wrapper"><pre><code class="hljs language-plaintext">graph LR
+    User[&quot;👤 User&quot;] --&gt; Prompt[&quot;💬 Prompt Filter&lt;br/&gt;(NeMo / LlamaGuard)&quot;]
+    Prompt --&gt; LLM[&quot;🤖 LLM&quot;]
+    LLM --&gt; Agent[&quot;🤖 Agent&quot;]
+    Agent --&gt; EC[&quot;⚙️ EnforceCore&lt;br/&gt;Policy · PII · Audit&quot;]
+    EC --&gt;|&quot;allowed&quot;| Tools[&quot;🔧 Tools&quot;]
+    EC --&gt;|&quot;blocked&quot;| Denied[&quot;🚫 Denied&quot;]
+    Tools --&gt; Container[&quot;📦 Container&lt;br/&gt;seccomp · cgroups&quot;]
+    Container --&gt; OS[&quot;🐧 OS Kernel&lt;br/&gt;SELinux · AppArmor&quot;]
+    OS --&gt; HW[&quot;🔒 Hardware&lt;br/&gt;TPM · SGX&quot;]
+
+    style EC fill:#2d7d46,stroke:#1a5c30,color:#fff</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><hr>
+<h2 id="summary"><a class="heading-anchor" href="#summary" aria-label="Link to Summary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Summary</h2><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>No single point of failure</td>
+<td>Five independent enforcement layers</td>
+</tr>
+<tr>
+<td>Least privilege</td>
+<td>Capabilities + default-deny policy</td>
+</tr>
+<tr>
+<td>Defense-in-depth</td>
+<td>Kernel → container → runtime → prompt</td>
+</tr>
+<tr>
+<td>Tamper evidence</td>
+<td>Merkle-chained audit trail (EnforceCore)</td>
+</tr>
+<tr>
+<td>Fail-closed</td>
+<td>Denied by default at every layer</td>
+</tr>
+</tbody></table>
+</div><p>EnforceCore is one layer in a defense-in-depth stack. It is the layer that
+understands <strong>agent semantics</strong> — tool calls, PII, cost budgets, and content
+rules. It is not a replacement for OS-level security, container isolation,
+or prompt-level content filters. Use all of them.</p>
+<p>See also:</p>
+<ul>
+<li><a href="related-work.html">Related Work</a> — comparison with OS-level enforcement tools</li>
+<li><a href="architecture.html">Architecture</a> — EnforceCore&#39;s internal design</li>
+<li><a href="security/tool-selection.html">Tool Selection Guide</a> — when to use what</li>
+<li><a href="security/attack-surface.html">Attack Surface</a> — threat model</li>
+</ul>
+
+                
+            </main>
+        </div>
+    </div>
+
+    <footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">EnforceCore</div>
+        <div class="footer-brand-desc">Runtime enforcement for AI agents.</div>
+        <div class="flex gap-3" style="margin-top: var(--space-3);">
+          <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://discord.gg/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="Discord">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.946 2.419-2.157 2.419z"/></svg>
+          </a>
+          <a href="https://x.com/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="X (Twitter)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Documentation</div>
+        <ul>
+          <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+          <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+          <li><a href="../../docs/reference/api/enforcer.html">API Reference</a></li>
+          <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <ul>
+          <li><a href="../../blog/">Blog</a></li>
+          <li><a href="../../case-studies/">Use Cases</a></li>
+          <li><a href="../../community.html">Community</a></li>
+          <li><a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="../../legal.html">Overview</a></li>
+          <li><a href="../../terms.html">Terms of Use</a></li>
+          <li><a href="../../privacy.html">Privacy Policy</a></li>
+          <li><a href="../../cookies.html">Cookies</a></li>
+          <li><a href="../../disclosure.html">Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EnforceCore Contributors · <a href="https://github.com/akios-ai/EnforceCore/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0</a></span>
+    </div>
+  </div>
+</footer>
+
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/search.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mainNav = document.getElementById('main-nav');
+      if (menuBtn && mainNav) {
+        menuBtn.addEventListener('click', () => {
+          mainNav.classList.toggle('open');
+          document.body.classList.toggle('mobile-nav-open');
+          const isOpen = mainNav.classList.contains('open');
+          menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+          menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          menuBtn.innerHTML = isOpen
+            ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+            : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+        });
+
+        // Close menu when a nav link is clicked
+        mainNav.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            document.body.classList.remove('mobile-nav-open');
+            menuBtn.setAttribute('aria-label', 'Open menu');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+          });
+        });
+      }
+
+      // Tab switching
+      document.querySelectorAll('.code-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.tab;
+          const win = btn.closest('.code-window');
+          if (!win) return;
+          win.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+          win.querySelectorAll('.code-content').forEach(c => c.classList.add('hidden'));
+          btn.classList.add('active');
+          const pane = document.getElementById('tab-' + tab);
+          if (pane) pane.classList.remove('hidden');
+        });
+      });
+
+      // Install command copy
+      const installCopyBtn = document.getElementById('install-copy');
+      if (installCopyBtn) {
+        installCopyBtn.addEventListener('click', () => {
+          const cmd = document.getElementById('install-cmd')?.innerText?.trim();
+          if (!cmd) return;
+          navigator.clipboard.writeText(cmd).then(() => {
+            installCopyBtn.style.color = '#22d3ee';
+            setTimeout(() => { installCopyBtn.style.color = ''; }, 2000);
+          });
+        });
+      }
+
+    });
+
+    // Copy buttons for code blocks
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre').forEach(pre => {
+        if (pre.closest('.code-block-wrapper')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.innerText = 'Copy';
+        btn.onclick = () => {
+          navigator.clipboard.writeText(pre.innerText).then(() => {
+            btn.innerText = 'Copied!';
+            setTimeout(() => btn.innerText = 'Copy', 2000);
+          });
+        };
+        wrapper.appendChild(btn);
+      });
+    });
+  </script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+    (function() {
+      var blocks = document.querySelectorAll('pre code.language-mermaid');
+      if (blocks.length) {
+        blocks.forEach(function(el) {
+          var pre = el.parentElement;
+          var div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = el.textContent;
+          pre.replaceWith(div);
+        });
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'base',
+          themeVariables: {
+            primaryColor: isDark ? '#164e63' : '#ecfeff',
+            primaryBorderColor: '#06b6d4',
+            primaryTextColor: isDark ? '#fafafa' : '#18181b',
+            lineColor: '#06b6d4',
+            secondaryColor: isDark ? '#14532d' : '#f0fdf4',
+            tertiaryColor: isDark ? '#7f1d1d' : '#fef2f2',
+            background: isDark ? '#09090b' : '#ffffff',
+            mainBkg: isDark ? '#164e63' : '#ecfeff',
+            nodeBorder: '#06b6d4',
+            clusterBkg: isDark ? '#131316' : '#fafafa',
+            clusterBorder: isDark ? '#27272a' : '#e4e4e7',
+            titleColor: isDark ? '#fafafa' : '#18181b',
+            edgeLabelBackground: isDark ? '#131316' : '#ffffff'
+          }
+        });
+      }
+    })();
+    </script>
+    <script>
+        (function() {
+            var p = window.location.pathname.replace(/\/$/, '').replace(/\/index\.html$/, '');
+            document.querySelectorAll('.docs-nav a').forEach(function(link) {
+                var href = link.getAttribute('href');
+                var normalized = href.replace(/\/$/, '').replace(/\/index\.html$/, '').replace(/\.html$/, '');
+                if (p.endsWith(normalized) || p.endsWith(normalized.replace(/\.html$/, ''))) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Docs sidebar toggle
+            var toggle = document.getElementById('docs-sidebar-toggle');
+            var sidebar = document.getElementById('docs-sidebar');
+            var backdrop = document.getElementById('docs-sidebar-backdrop');
+            if (toggle && sidebar) {
+                toggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    if (backdrop) backdrop.classList.toggle('open');
+                });
+                if (backdrop) {
+                    backdrop.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        backdrop.classList.remove('open');
+                    });
+                }
+                sidebar.querySelectorAll('a').forEach(function(a) {
+                    a.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        if (backdrop) backdrop.classList.remove('open');
+                    });
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
