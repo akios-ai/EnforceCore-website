@@ -1,0 +1,643 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnforceCore — Versioning &amp; Release Roadmap — EnforceCore Docs</title>
+    <meta name="description" content="Audience: Anyone (including non-engineers) who wants to understand what our version numbers mean, how stable the software is right now, and when it will be...">
+    <link rel="canonical" href="https://enforcecore.dev/docs/versioning-and-roadmap/">
+    <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="#docs-main" class="skip-link">Skip to content</a>
+    <header>
+  <div class="container header-inner">
+
+    <a href="../../" class="logo-link">
+      <img src="../../assets/img/logo-enforcecore-light-x.svg" alt="EnforceCore" class="logo-light header-logo" width="61" height="44">
+      <img src="../../assets/img/logo-enforcecore-dark-x.svg" alt="EnforceCore" class="logo-dark header-logo" width="61" height="44">
+    </a>
+
+    <nav id="main-nav">
+      <div class="nav-links">
+        <a href="../../docs/index.html" class="nav-link">Documentation</a>
+        <a href="../../blog/" class="nav-link">Blog</a>
+        <a href="../../case-studies/" class="nav-link">Use Cases</a>
+        <a href="../../community.html" class="nav-link">Community</a>
+      </div>
+
+      <div class="nav-utils">
+        <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-link nav-github-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <div class="search-container">
+          <div class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <input type="text" id="search-input" placeholder="Search..." aria-label="Search documentation">
+          <div class="search-shortcut">⌘K</div>
+          <div id="search-results" class="search-results"></div>
+        </div>
+        <button id="theme-toggle" class="nav-icon-btn" aria-label="Toggle theme">
+          <svg id="theme-icon-sun" class="theme-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="theme-icon-moon" class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+  </div>
+</header>
+
+
+    <button class="docs-sidebar-toggle" id="docs-sidebar-toggle" aria-label="Toggle navigation">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span>Menu</span>
+    </button>
+    <div class="docs-sidebar-backdrop" id="docs-sidebar-backdrop"></div>
+
+    <div class="page">
+        <div class="docs-wrapper">
+            
+            <aside class="docs-sidebar" id="docs-sidebar">
+                <nav class="docs-nav">
+                    <div class="section-title">Getting Started</div>
+                    <ul>
+                        <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+                        <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+                    </ul>
+
+                    <div class="section-title">Concepts</div>
+                    <ul>
+                        <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+                        <li><a href="../../docs/concepts/policy-engine.html">Policy Engine</a></li>
+                        <li><a href="../../docs/concepts/security-model.html">Security Model</a></li>
+                        <li><a href="../../docs/concepts/defense-in-depth.html">Defense in Depth</a></li>
+                        <li><a href="../../docs/concepts/technology.html">Technology Stack</a></li>
+                    </ul>
+
+                    <div class="section-title">Guides</div>
+                    <ul>
+                        <li><a href="../../docs/guides/integrations.html">Integrations</a></li>
+                        <li><a href="../../docs/guides/development.html">Developer Guide</a></li>
+                        <li><a href="../../docs/guides/tool-selection.html">Tool Selection</a></li>
+                    </ul>
+
+                    <div class="section-title">Reference</div>
+                    <ul>
+                        <li><a href="../../docs/reference/api/enforcer.html">Enforcer API</a></li>
+                        <li><a href="../../docs/reference/api/auditor.html">Auditor API</a></li>
+                        <li><a href="../../docs/reference/api/guard.html">Guard API</a></li>
+                        <li><a href="../../docs/reference/api/redactor.html">Redactor API</a></li>
+                        <li><a href="../../docs/reference/compliance/gdpr.html">GDPR</a></li>
+                        <li><a href="../../docs/reference/compliance/eu-ai-act.html">EU AI Act</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="docs-content" id="docs-main">
+                <h1 id="enforcecore-versioning-release-roadmap">EnforceCore — Versioning &amp; Release Roadmap</h1><blockquote><p><strong>Audience:</strong> Anyone (including non-engineers) who wants to understand what
+our version numbers mean, how stable the software is right now, and when
+it will be ready for production use.</p>
+</blockquote><hr>
+<h2 id="how-version-numbers-work"><a class="heading-anchor" href="#how-version-numbers-work" aria-label="Link to How Version Numbers Work"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>How Version Numbers Work</h2><p>Every EnforceCore release has a version number like <strong><code>1.0.23a1</code></strong>.
+Here&#39;s what each part means:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">  1  .  0  .  23  a1
+  │     │     │   │
+  │     │     │   └── Pre-release tag: &quot;a&quot; = alpha, &quot;b&quot; = beta, &quot;rc&quot; = release candidate
+  │     │     └────── Patch number: increments with each release
+  │     └──────────── Minor version: stays at 0 for all v1.0.x releases
+  └────────────────── Major version: stays at 1</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h3 id="the-four-stages-of-a-release"><a class="heading-anchor" href="#the-four-stages-of-a-release" aria-label="Link to The Four Stages of a Release"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>The Four Stages of a Release</h3><p>Think of it like building a house:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Version Example</th>
+<th>What It Means</th>
+<th>Who Should Use It</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Alpha</strong> (<code>a</code>)</td>
+<td><code>1.0.23a1</code></td>
+<td>🏗️ <strong>Under construction.</strong> Core features work, but things may change. Expect rough edges.</td>
+<td>Developers who want early access and don&#39;t mind occasional breakage</td>
+</tr>
+<tr>
+<td><strong>Beta</strong> (<code>b</code>)</td>
+<td><code>1.0.25b1</code></td>
+<td>🏠 <strong>Walls are up.</strong> All planned features are done. We&#39;re fixing bugs, not adding features.</td>
+<td>Early adopters who want to test before everyone else</td>
+</tr>
+<tr>
+<td><strong>Release Candidate</strong> (<code>rc</code>)</td>
+<td><code>1.0.28rc1</code></td>
+<td>🏡 <strong>Final inspection.</strong> We believe it&#39;s ready. If no bugs are found, this becomes the stable release.</td>
+<td>Teams preparing for production deployment</td>
+</tr>
+<tr>
+<td><strong>Stable</strong></td>
+<td><code>1.0.0</code></td>
+<td>✅ <strong>Move-in ready.</strong> Fully tested, documented, and supported. Safe for production.</td>
+<td>Everyone</td>
+</tr>
+</tbody></table>
+</div><h3 id="what-changes-between-stages"><a class="heading-anchor" href="#what-changes-between-stages" aria-label="Link to What Changes Between Stages"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What Changes Between Stages</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th>Alpha → Beta</th>
+<th>Beta → RC</th>
+<th>RC → Stable</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>New features?</strong></td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>API changes?</strong></td>
+<td>Yes (with notice)</td>
+<td>Only bug fixes</td>
+<td>Nothing</td>
+</tr>
+<tr>
+<td><strong>Bug fixes?</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Only critical</td>
+</tr>
+<tr>
+<td><strong>Safe for production?</strong></td>
+<td>❌ No</td>
+<td>⚠️ With caution</td>
+<td>✅ Yes</td>
+</tr>
+</tbody></table>
+</div><hr>
+<h2 id="where-enforcecore-is-today"><a class="heading-anchor" href="#where-enforcecore-is-today" aria-label="Link to Where EnforceCore Is Today"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Where EnforceCore Is Today</h2><p><strong>Current version: <code>1.11.0</code> (Stable)</strong>
+<strong>Published:</strong> February 27, 2026 on <a href="https://pypi.org/project/enforcecore/">PyPI</a></p>
+<h3 id="what-stable-means-for-you"><a class="heading-anchor" href="#what-stable-means-for-you" aria-label="Link to What Stable Means for You"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What Stable Means for You</h3><p>✅ <strong>What works right now:</strong></p>
+<ul>
+<li>Full enforcement pipeline (<code>@enforce()</code> decorator)</li>
+<li>PII redaction (emails, phones, SSNs, credit cards, IPs, passports)</li>
+<li>Secret scanning (AWS keys, GitHub tokens, API keys, etc.)</li>
+<li>Tool allow/deny lists</li>
+<li>Content rules (block dangerous patterns)</li>
+<li>Audit trail with Merkle-chain verification + hash witnesses</li>
+<li>Policy-as-YAML configuration</li>
+<li>Async support</li>
+<li>Framework adapters (LangGraph, AutoGen, CrewAI)</li>
+<li>1,972 tests passing, 95%+ code coverage</li>
+<li>58-symbol public API, frozen since v1.0.0</li>
+<li>147-point post-release audit: 100% pass rate</li>
+</ul>
+<p>✅ <strong>API guarantees:</strong></p>
+<ul>
+<li>The public API (<code>enforcecore.__all__</code>) is frozen—no breaking changes until v2.0</li>
+<li>Policy YAML files written for v1.0 will load in all v1.x releases</li>
+<li>Audit trail files written by v1.0 will be verifiable by all v1.x releases</li>
+</ul>
+<p>✅ <strong>Safe for production:</strong></p>
+<ul>
+<li>Use <code>pip install enforcecore</code> with confidence</li>
+<li>Pin to <code>enforcecore&gt;=1.0.0,&lt;2</code> for stability</li>
+</ul>
+<hr>
+<h2 id="the-road-to-stable-v100-complete"><a class="heading-anchor" href="#the-road-to-stable-v100-complete" aria-label="Link to The Road to Stable (v1.0.0) — Complete ✅"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>The Road to Stable (v1.0.0) — Complete ✅</h2><p>All phases completed ahead of schedule (shipped Feb 24, 2026 vs. original June 2026 target).</p>
+<h3 id="phase-1-alpha-hardening-complete"><a class="heading-anchor" href="#phase-1-alpha-hardening-complete" aria-label="Link to Phase 1: Alpha Hardening ✅ Complete"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Phase 1: Alpha Hardening ✅ Complete</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Release</th>
+<th>Focus</th>
+<th>Key Changes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>v1.0.21a1</strong></td>
+<td>⚠️ Security quick wins</td>
+<td>Fix PII leak on fail_open path, log async hook errors, use public dataclass API <em>(code shipped; not on PyPI — superseded by v1.0.22a1)</em></td>
+</tr>
+<tr>
+<td><strong>v1.0.22a1</strong></td>
+<td>✅ Infrastructure</td>
+<td>Policy cache with mtime invalidation, shared thread pool (no more per-call pools), larger audit seek window</td>
+</tr>
+<tr>
+<td><strong>v1.0.23a1</strong></td>
+<td>✅ Release infra &amp; CI</td>
+<td>CI parity in release script, macOS-only test matrix, release.py hardening, security docs</td>
+</tr>
+<tr>
+<td><strong>v1.0.24a1</strong></td>
+<td>⚡ Architecture</td>
+<td>Refactor sync/async enforcement into shared pipeline, fix unicode normalization offset mapping</td>
+</tr>
+</tbody></table>
+</div><h3 id="phase-2-beta-complete-shipped-as-v100b1b6"><a class="heading-anchor" href="#phase-2-beta-complete-shipped-as-v100b1b6" aria-label="Link to Phase 2: Beta ✅ Complete (shipped as v1.0.0b1–b6)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Phase 2: Beta ✅ Complete (shipped as v1.0.0b1–b6)</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Release</th>
+<th>Focus</th>
+<th>Key Changes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>v1.0.25b1</strong></td>
+<td>📦 API stabilization</td>
+<td>Reduce <code>__all__</code> from 110 to ~25 core symbols, move specialized types to submodules, add deprecation warnings</td>
+</tr>
+<tr>
+<td><strong>v1.0.26b1</strong></td>
+<td>📖 Documentation</td>
+<td>Complete API reference, migration guide for deprecated imports, integration guides for LangChain/CrewAI/AutoGen</td>
+</tr>
+<tr>
+<td><strong>v1.0.27b1</strong></td>
+<td>🧪 Extended testing</td>
+<td>Fuzz testing, property-based testing expansion, performance regression benchmarks</td>
+</tr>
+</tbody></table>
+</div><h3 id="phase-3-release-candidate-skipped-went-directly-to-stable"><a class="heading-anchor" href="#phase-3-release-candidate-skipped-went-directly-to-stable" aria-label="Link to Phase 3: Release Candidate ✅ (Skipped — went directly to stable)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Phase 3: Release Candidate ✅ (Skipped — went directly to stable)</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Release</th>
+<th>Focus</th>
+<th>Key Changes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>v1.0.28rc1</strong></td>
+<td>🔍 Final audit</td>
+<td>Independent security review, penetration testing of enforcement bypass scenarios</td>
+</tr>
+<tr>
+<td><strong>v1.0.29rc2</strong></td>
+<td>🐛 Bug fixes only</td>
+<td>Address anything found in rc1, final documentation review</td>
+</tr>
+</tbody></table>
+</div><h3 id="phase-4-stable-release-shipped-feb-24-2026"><a class="heading-anchor" href="#phase-4-stable-release-shipped-feb-24-2026" aria-label="Link to Phase 4: Stable Release ✅ Shipped Feb 24, 2026"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Phase 4: Stable Release ✅ Shipped Feb 24, 2026</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Release</th>
+<th>What It Means</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>v1.0.0</strong></td>
+<td>✅ Production-ready. Public API is frozen. Breaking changes only in v2.0.0. Semantic versioning applies.</td>
+</tr>
+</tbody></table>
+</div><hr>
+<h2 id="after-v100-what-comes-next"><a class="heading-anchor" href="#after-v100-what-comes-next" aria-label="Link to After v1.0.0 — What Comes Next"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>After v1.0.0 — What Comes Next</h2><p>Once stable, version numbers follow <a href="https://semver.org/">Semantic Versioning</a>:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Change Type</th>
+<th>Version Bump</th>
+<th>Example</th>
+<th>What Changed</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Bug fix</strong></td>
+<td>Patch (<code>x.y.Z</code>)</td>
+<td>1.0.0 → 1.0.1</td>
+<td>Fixed a bug, no API changes</td>
+</tr>
+<tr>
+<td><strong>New feature</strong></td>
+<td>Minor (<code>x.Y.0</code>)</td>
+<td>1.0.1 → 1.1.0</td>
+<td>Added new capability, old code still works</td>
+</tr>
+<tr>
+<td><strong>Breaking change</strong></td>
+<td>Major (<code>X.0.0</code>)</td>
+<td>1.1.0 → 2.0.0</td>
+<td>Changed existing API, migration may be needed</td>
+</tr>
+</tbody></table>
+</div><h3 id="post-stable-releases"><a class="heading-anchor" href="#post-stable-releases" aria-label="Link to Post-Stable Releases"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Post-Stable Releases</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Focus</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>v1.0.1</strong></td>
+<td>Bug fixes from post-release audit (witness verification, policy validation)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.1.0</strong></td>
+<td>Eval expansion (26 scenarios, 11 threat categories, HTML reports)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.1.2</strong></td>
+<td>Beta feedback fixes (CLI <code>--version</code>, doc links, extras)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.2.0</strong></td>
+<td>Audit Storage System + Compliance (JSONL/SQLite/PostgreSQL backends, EU AI Act)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.3.0</strong></td>
+<td>Subprocess sandbox (post-execution isolation, resource limits)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.4.0</strong></td>
+<td>NER PII + sensitivity labels (<code>enforcecore[ner]</code>)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.5.0</strong></td>
+<td>OpenTelemetry + Observability (Prometheus, OTLP, Grafana)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.6.0</strong></td>
+<td>Multi-tenant + policy inheritance (<code>extends:</code> keyword)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.7.0</strong></td>
+<td>Remote policy server (signed policies, pull-only)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.8.0</strong></td>
+<td>Compliance reporting (EU AI Act / SOC2 / GDPR exports)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.9.0</strong></td>
+<td>Plugin ecosystem (custom guards/redactors from PyPI)</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.10.0</strong></td>
+<td>Quality Hardening + Async Streaming Enforcement</td>
+<td>✅ Shipped</td>
+</tr>
+<tr>
+<td><strong>v1.11.0</strong></td>
+<td>AsyncIO Streaming Enforcement GA, 2307 tests, 97% coverage</td>
+<td>✅ <strong>Latest</strong></td>
+</tr>
+<tr>
+<td><strong>v2.0.0</strong></td>
+<td>Distributed enforcement (multi-node, global Merkle root)</td>
+<td>📋 Planned</td>
+</tr>
+<tr>
+<td><strong>v2.0.0</strong></td>
+<td>Distributed enforcement for multi-agent architectures</td>
+<td>📋 Planned</td>
+</tr>
+</tbody></table>
+</div><hr>
+<h2 id="how-we-decide-when-to-move-between-stages"><a class="heading-anchor" href="#how-we-decide-when-to-move-between-stages" aria-label="Link to How We Decide When to Move Between Stages"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>How We Decide When to Move Between Stages</h2><h3 id="alpha-beta-checklist"><a class="heading-anchor" href="#alpha-beta-checklist" aria-label="Link to Alpha → Beta Checklist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Alpha → Beta Checklist</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> All known security findings from audit are fixed</li>
+<li><input checked="" disabled="" type="checkbox"> No known data leaks (PII, secrets) under any code path</li>
+<li><input checked="" disabled="" type="checkbox"> Thread safety verified under concurrent load</li>
+<li><input checked="" disabled="" type="checkbox"> Policy cache properly invalidates on file changes</li>
+<li><input checked="" disabled="" type="checkbox"> Sync and async paths share a single enforcement pipeline</li>
+<li><input checked="" disabled="" type="checkbox"> Unicode evasion fully mitigated</li>
+<li><input checked="" disabled="" type="checkbox"> All 1,510+ tests pass on Python 3.11, 3.12, 3.13</li>
+</ul>
+<h3 id="beta-release-candidate-checklist"><a class="heading-anchor" href="#beta-release-candidate-checklist" aria-label="Link to Beta → Release Candidate Checklist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Beta → Release Candidate Checklist</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> Public API surface finalized (30 core symbols)</li>
+<li><input checked="" disabled="" type="checkbox"> All deprecated imports emit warnings for 1 release cycle</li>
+<li><input checked="" disabled="" type="checkbox"> Complete API documentation published</li>
+<li><input checked="" disabled="" type="checkbox"> Integration guides for top 3 agent frameworks</li>
+<li><input checked="" disabled="" type="checkbox"> Performance benchmarks stable (&lt;1ms enforcement overhead)</li>
+<li><input checked="" disabled="" type="checkbox"> No new bugs reported in beta for 2+ weeks</li>
+</ul>
+<h3 id="release-candidate-stable-checklist"><a class="heading-anchor" href="#release-candidate-stable-checklist" aria-label="Link to Release Candidate → Stable Checklist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Release Candidate → Stable Checklist</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> Independent security review completed</li>
+<li><input checked="" disabled="" type="checkbox"> No P0/P1 bugs open</li>
+<li><input checked="" disabled="" type="checkbox"> Documentation reviewed by a non-contributor</li>
+<li><input checked="" disabled="" type="checkbox"> Migration guide tested by an external user</li>
+<li><input checked="" disabled="" type="checkbox"> Changelog complete and accurate</li>
+<li><input checked="" disabled="" type="checkbox"> Legal review of all licenses and attributions</li>
+</ul>
+<hr>
+<h2 id="faq"><a class="heading-anchor" href="#faq" aria-label="Link to FAQ"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>FAQ</h2><p><strong>Q: Can I use EnforceCore in my project?</strong>
+A: Yes! v1.0.0 is stable and production-ready. Install with <code>pip install enforcecore</code>
+and pin to <code>enforcecore&gt;=1.0.0,&lt;2</code> for stability.</p>
+<p><strong>Q: Will my code break when you release v1.1?</strong>
+A: No. We follow semantic versioning. Breaking changes only happen in v2.0.0.
+The core <code>@enforce()</code> decorator and <code>Policy</code> class will not change.</p>
+<p><strong>Q: How often do you release?</strong>
+A: Patch releases as needed for bug fixes. Minor releases every 1–2 months
+for new features. See the <a href="roadmap.html">Roadmap</a> for planned releases.</p>
+<p><strong>Q: What if I find a bug?</strong>
+A: Open an issue at <a href="https://github.com/akios-ai/EnforceCore/issues">github.com/akios-ai/EnforceCore/issues</a>.
+Bug reports are always welcome.</p>
+<p><strong>Q: Is EnforceCore free?</strong>
+A: Yes. EnforceCore is open-source under the Apache 2.0 license. You can
+use it commercially, modify it, and distribute it. See <a href="../LICENSE">LICENSE</a>
+for details.</p>
+<hr>
+<p><em>This document is updated with each release. Last updated: February 28, 2026 (v1.9.0 stable — Plugin Ecosystem).</em></p>
+
+                
+            </main>
+        </div>
+    </div>
+
+    <footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">EnforceCore</div>
+        <div class="footer-brand-desc">Runtime enforcement for AI agents.</div>
+        <div class="flex gap-3" style="margin-top: var(--space-3);">
+          <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://discord.gg/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="Discord">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.946 2.419-2.157 2.419z"/></svg>
+          </a>
+          <a href="https://x.com/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="X (Twitter)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Documentation</div>
+        <ul>
+          <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+          <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+          <li><a href="../../docs/reference/api/enforcer.html">API Reference</a></li>
+          <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <ul>
+          <li><a href="../../blog/">Blog</a></li>
+          <li><a href="../../case-studies/">Use Cases</a></li>
+          <li><a href="../../community.html">Community</a></li>
+          <li><a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="../../legal.html">Overview</a></li>
+          <li><a href="../../terms.html">Terms of Use</a></li>
+          <li><a href="../../privacy.html">Privacy Policy</a></li>
+          <li><a href="../../cookies.html">Cookies</a></li>
+          <li><a href="../../disclosure.html">Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EnforceCore Contributors · <a href="https://github.com/akios-ai/EnforceCore/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0</a></span>
+    </div>
+  </div>
+</footer>
+
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/search.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mainNav = document.getElementById('main-nav');
+      if (menuBtn && mainNav) {
+        menuBtn.addEventListener('click', () => {
+          mainNav.classList.toggle('open');
+          document.body.classList.toggle('mobile-nav-open');
+          const isOpen = mainNav.classList.contains('open');
+          menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+          menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          menuBtn.innerHTML = isOpen
+            ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+            : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+        });
+
+        // Close menu when a nav link is clicked
+        mainNav.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            document.body.classList.remove('mobile-nav-open');
+            menuBtn.setAttribute('aria-label', 'Open menu');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+          });
+        });
+      }
+
+      // Tab switching
+      document.querySelectorAll('.code-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.tab;
+          const win = btn.closest('.code-window');
+          if (!win) return;
+          win.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+          win.querySelectorAll('.code-content').forEach(c => c.classList.add('hidden'));
+          btn.classList.add('active');
+          const pane = document.getElementById('tab-' + tab);
+          if (pane) pane.classList.remove('hidden');
+        });
+      });
+
+      // Install command copy
+      const installCopyBtn = document.getElementById('install-copy');
+      if (installCopyBtn) {
+        installCopyBtn.addEventListener('click', () => {
+          const cmd = document.getElementById('install-cmd')?.innerText?.trim();
+          if (!cmd) return;
+          navigator.clipboard.writeText(cmd).then(() => {
+            installCopyBtn.style.color = '#22d3ee';
+            setTimeout(() => { installCopyBtn.style.color = ''; }, 2000);
+          });
+        });
+      }
+
+    });
+
+    // Copy buttons for code blocks
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre').forEach(pre => {
+        if (pre.closest('.code-block-wrapper')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.innerText = 'Copy';
+        btn.onclick = () => {
+          navigator.clipboard.writeText(pre.innerText).then(() => {
+            btn.innerText = 'Copied!';
+            setTimeout(() => btn.innerText = 'Copy', 2000);
+          });
+        };
+        wrapper.appendChild(btn);
+      });
+    });
+  </script>
+
+    
+    <script>
+        (function() {
+            var p = window.location.pathname.replace(/\/$/, '').replace(/\/index\.html$/, '');
+            document.querySelectorAll('.docs-nav a').forEach(function(link) {
+                var href = link.getAttribute('href');
+                var normalized = href.replace(/\/$/, '').replace(/\/index\.html$/, '').replace(/\.html$/, '');
+                if (p.endsWith(normalized) || p.endsWith(normalized.replace(/\.html$/, ''))) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Docs sidebar toggle
+            var toggle = document.getElementById('docs-sidebar-toggle');
+            var sidebar = document.getElementById('docs-sidebar');
+            var backdrop = document.getElementById('docs-sidebar-backdrop');
+            if (toggle && sidebar) {
+                toggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    if (backdrop) backdrop.classList.toggle('open');
+                });
+                if (backdrop) {
+                    backdrop.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        backdrop.classList.remove('open');
+                    });
+                }
+                sidebar.querySelectorAll('a').forEach(function(a) {
+                    a.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        if (backdrop) backdrop.classList.remove('open');
+                    });
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnforceCore — FAQ — EnforceCore Docs</title>
+    <meta name="description" content="General What is EnforceCore? EnforceCore is a runtime enforcement layer for agentic AI systems. It intercepts tool/API calls at the code boundary and applies...">
+    <link rel="canonical" href="https://enforcecore.dev/docs/faq/">
+    <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="#docs-main" class="skip-link">Skip to content</a>
+    <header>
+  <div class="container header-inner">
+
+    <a href="../../" class="logo-link">
+      <img src="../../assets/img/logo-enforcecore-light-x.svg" alt="EnforceCore" class="logo-light header-logo" width="61" height="44">
+      <img src="../../assets/img/logo-enforcecore-dark-x.svg" alt="EnforceCore" class="logo-dark header-logo" width="61" height="44">
+    </a>
+
+    <nav id="main-nav">
+      <div class="nav-links">
+        <a href="../../docs/index.html" class="nav-link">Documentation</a>
+        <a href="../../blog/" class="nav-link">Blog</a>
+        <a href="../../case-studies/" class="nav-link">Use Cases</a>
+        <a href="../../community.html" class="nav-link">Community</a>
+      </div>
+
+      <div class="nav-utils">
+        <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-link nav-github-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <div class="search-container">
+          <div class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <input type="text" id="search-input" placeholder="Search..." aria-label="Search documentation">
+          <div class="search-shortcut">⌘K</div>
+          <div id="search-results" class="search-results"></div>
+        </div>
+        <button id="theme-toggle" class="nav-icon-btn" aria-label="Toggle theme">
+          <svg id="theme-icon-sun" class="theme-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="theme-icon-moon" class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+  </div>
+</header>
+
+
+    <button class="docs-sidebar-toggle" id="docs-sidebar-toggle" aria-label="Toggle navigation">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span>Menu</span>
+    </button>
+    <div class="docs-sidebar-backdrop" id="docs-sidebar-backdrop"></div>
+
+    <div class="page">
+        <div class="docs-wrapper">
+            
+            <aside class="docs-sidebar" id="docs-sidebar">
+                <nav class="docs-nav">
+                    <div class="section-title">Getting Started</div>
+                    <ul>
+                        <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+                        <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+                    </ul>
+
+                    <div class="section-title">Concepts</div>
+                    <ul>
+                        <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+                        <li><a href="../../docs/concepts/policy-engine.html">Policy Engine</a></li>
+                        <li><a href="../../docs/concepts/security-model.html">Security Model</a></li>
+                        <li><a href="../../docs/concepts/defense-in-depth.html">Defense in Depth</a></li>
+                        <li><a href="../../docs/concepts/technology.html">Technology Stack</a></li>
+                    </ul>
+
+                    <div class="section-title">Guides</div>
+                    <ul>
+                        <li><a href="../../docs/guides/integrations.html">Integrations</a></li>
+                        <li><a href="../../docs/guides/development.html">Developer Guide</a></li>
+                        <li><a href="../../docs/guides/tool-selection.html">Tool Selection</a></li>
+                    </ul>
+
+                    <div class="section-title">Reference</div>
+                    <ul>
+                        <li><a href="../../docs/reference/api/enforcer.html">Enforcer API</a></li>
+                        <li><a href="../../docs/reference/api/auditor.html">Auditor API</a></li>
+                        <li><a href="../../docs/reference/api/guard.html">Guard API</a></li>
+                        <li><a href="../../docs/reference/api/redactor.html">Redactor API</a></li>
+                        <li><a href="../../docs/reference/compliance/gdpr.html">GDPR</a></li>
+                        <li><a href="../../docs/reference/compliance/eu-ai-act.html">EU AI Act</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="docs-content" id="docs-main">
+                <h1 id="enforcecore-faq">EnforceCore — FAQ</h1><h2 id="general"><a class="heading-anchor" href="#general" aria-label="Link to General"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>General</h2><h3 id="what-is-enforcecore"><a class="heading-anchor" href="#what-is-enforcecore" aria-label="Link to What is EnforceCore?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What is EnforceCore?</h3><p>EnforceCore is a runtime enforcement layer for agentic AI systems. It
+intercepts tool/API calls at the code boundary and applies policy-driven
+rules — blocking denied calls, redacting PII, enforcing resource limits,
+and recording tamper-proof audit trails.</p>
+<h3 id="how-is-this-different-from-prompt-guardrails"><a class="heading-anchor" href="#how-is-this-different-from-prompt-guardrails" aria-label="Link to How is this different from prompt guardrails?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>How is this different from prompt guardrails?</h3><p>Prompt guardrails operate inside the LLM context — they <em>ask</em> the model
+to behave. EnforceCore operates at the <strong>runtime call boundary</strong> — the
+moment before a tool is actually executed. Prompts can be jailbroken;
+code-level enforcement cannot.</p>
+<h3 id="does-enforcecore-work-with-my-agent-framework"><a class="heading-anchor" href="#does-enforcecore-work-with-my-agent-framework" aria-label="Link to Does EnforceCore work with my agent framework?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Does EnforceCore work with my agent framework?</h3><p>Yes. EnforceCore works with <strong>any</strong> Python-based agent system:</p>
+<ul>
+<li><strong>Plain Python</strong> — <code>@enforce()</code> decorator</li>
+<li><strong>LangGraph / LangChain</strong> — <code>@enforced_tool()</code> adapter</li>
+<li><strong>CrewAI</strong> — <code>@enforced_tool()</code> adapter</li>
+<li><strong>AutoGen</strong> — <code>@enforced_tool()</code> adapter</li>
+</ul>
+<p>No hard dependency on any framework. Adapters use optional imports.</p>
+<h3 id="is-enforcecore-production-ready"><a class="heading-anchor" href="#is-enforcecore-production-ready" aria-label="Link to Is EnforceCore production-ready?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Is EnforceCore production-ready?</h3><p>Yes. EnforceCore v1.0.0 is stable and production-ready (<code>pip install enforcecore</code>).
+It includes security hardening, unicode evasion protection, fail-closed
+enforcement on all paths, and a 30-symbol public API frozen since beta.
+1510 tests pass across Python 3.11/3.12/3.13. We still recommend thorough
+testing with your own workloads, as with any security-critical dependency.</p>
+<hr>
+<h2 id="security"><a class="heading-anchor" href="#security" aria-label="Link to Security"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Security</h2><h3 id="what-does-fail-closed-mean"><a class="heading-anchor" href="#what-does-fail-closed-mean" aria-label="Link to What does &quot;fail-closed&quot; mean?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What does &quot;fail-closed&quot; mean?</h3><p>If anything goes wrong during enforcement (parsing error, internal
+exception, etc.), the tool call is <strong>blocked</strong> — it never executes.
+This is the safe default. The <code>fail_open</code> setting exists for development
+only and emits a loud warning in production.</p>
+<h3 id="can-i-enable-fail_open-in-production"><a class="heading-anchor" href="#can-i-enable-fail_open-in-production" aria-label="Link to Can I enable fail_open in production?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Can I enable <code>fail_open</code> in production?</h3><p>You can, but you <strong>should not</strong>. When <code>fail_open=True</code>, any internal
+enforcement error causes the call to proceed unprotected. In production
+this means a bug in EnforceCore could silently bypass all protection.</p>
+<p>If you set <code>fail_open=True</code> without <code>ENFORCECORE_DEV_MODE=1</code>, you will
+see a <code>RuntimeWarning</code>:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-plaintext">SECURITY WARNING: fail_open is enabled without ENFORCECORE_DEV_MODE=1.</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h3 id="what-is-enforcecore_dev_mode"><a class="heading-anchor" href="#what-is-enforcecore_dev_mode" aria-label="Link to What is ENFORCECORE_DEV_MODE?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What is <code>ENFORCECORE_DEV_MODE</code>?</h3><p>An environment variable that acknowledges you are running in a development
+environment. Set <code>ENFORCECORE_DEV_MODE=1</code> to suppress the <code>fail_open</code>
+security warning. <strong>Never set this in production.</strong></p>
+<h3 id="does-enforcecore-protect-against-unicode-pii-evasion"><a class="heading-anchor" href="#does-enforcecore-protect-against-unicode-pii-evasion" aria-label="Link to Does EnforceCore protect against unicode PII evasion?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Does EnforceCore protect against unicode PII evasion?</h3><p>Yes. Since v1.0.6, the PII redactor normalizes text before regex matching:</p>
+<ol>
+<li><strong>NFC normalization</strong> and zero-width character stripping</li>
+<li><strong>Homoglyph normalization</strong> (Cyrillic/Greek/fullwidth to ASCII)</li>
+<li><strong>Encoded PII decoding</strong> (URL percent-encoding, HTML entities)</li>
+</ol>
+<p>This defeats attacks like embedding PII with zero-width characters, using
+Cyrillic look-alikes, or URL-encoding the <code>@</code> sign in email addresses.</p>
+<h3 id="what-is-the-enforcement-depth-limit"><a class="heading-anchor" href="#what-is-the-enforcement-depth-limit" aria-label="Link to What is the enforcement depth limit?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What is the enforcement depth limit?</h3><p>EnforceCore tracks nested enforcement calls via <code>contextvars</code>. If a tool
+calls another enforced tool, the nesting depth increases. The default
+maximum depth is 10. If exceeded, <code>EnforcementDepthError</code> is raised.
+This prevents infinite recursion in enforcement chains.</p>
+<hr>
+<h2 id="pii-redaction"><a class="heading-anchor" href="#pii-redaction" aria-label="Link to PII Redaction"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>PII Redaction</h2><h3 id="what-pii-categories-are-supported"><a class="heading-anchor" href="#what-pii-categories-are-supported" aria-label="Link to What PII categories are supported?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What PII categories are supported?</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Example</th>
+<th>Placeholder</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>email</code></td>
+<td><code>john@example.com</code></td>
+<td><code>&lt;EMAIL&gt;</code></td>
+</tr>
+<tr>
+<td><code>phone</code></td>
+<td><code>(555) 123-4567</code></td>
+<td><code>&lt;PHONE&gt;</code></td>
+</tr>
+<tr>
+<td><code>ssn</code></td>
+<td><code>123-45-6789</code></td>
+<td><code>&lt;SSN&gt;</code></td>
+</tr>
+<tr>
+<td><code>credit_card</code></td>
+<td><code>4111-1111-1111-1111</code></td>
+<td><code>&lt;CREDIT_CARD&gt;</code></td>
+</tr>
+<tr>
+<td><code>ip_address</code></td>
+<td><code>192.168.1.100</code></td>
+<td><code>&lt;IP_ADDRESS&gt;</code></td>
+</tr>
+<tr>
+<td><code>passport</code></td>
+<td><code>AB1234567</code></td>
+<td><code>&lt;PASSPORT&gt;</code></td>
+</tr>
+</tbody></table>
+</div><h3 id="why-not-use-spacy-or-presidio"><a class="heading-anchor" href="#why-not-use-spacy-or-presidio" aria-label="Link to Why not use spaCy or Presidio?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Why not use spaCy or Presidio?</h3><p>EnforceCore uses <strong>pure regex by default</strong> for zero heavy dependencies,
+portability, and speed (~0.03ms per call). Since <strong>v1.4.0</strong>, Presidio +
+spaCy are available as an optional NER backend for higher-accuracy
+detection:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-bash">pip install enforcecore[pii]  <span class="hljs-comment"># installs presidio-analyzer + spaCy</span></code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><div class="code-block-wrapper"><pre><code class="hljs language-python"><span class="hljs-keyword">from</span> enforcecore <span class="hljs-keyword">import</span> NERBackend, is_ner_available
+<span class="hljs-keyword">if</span> is_ner_available():
+    redactor = Redactor(ner_backend=NERBackend.PRESIDIO)</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><h3 id="does-redaction-work-on-nested-data-structures"><a class="heading-anchor" href="#does-redaction-work-on-nested-data-structures" aria-label="Link to Does redaction work on nested data structures?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Does redaction work on nested data structures?</h3><p>Yes. Since v1.0.6, the <code>deep_redact()</code> function recursively traverses
+<code>dict</code>, <code>list</code>, <code>tuple</code>, and <code>set</code> containers, applying redaction to all
+string leaves. This is automatically used by <code>enforce_sync()</code> and
+<code>enforce_async()</code>.</p>
+<h3 id="what-redaction-strategies-are-available"><a class="heading-anchor" href="#what-redaction-strategies-are-available" aria-label="Link to What redaction strategies are available?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What redaction strategies are available?</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Result for <code>john@example.com</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>placeholder</code></td>
+<td><code>&lt;EMAIL&gt;</code></td>
+</tr>
+<tr>
+<td><code>mask</code></td>
+<td><code>****@****.***</code></td>
+</tr>
+<tr>
+<td><code>hash</code></td>
+<td><code>[SHA256:6b0b4806b1e57501]</code></td>
+</tr>
+<tr>
+<td><code>remove</code></td>
+<td><em>(empty string)</em></td>
+</tr>
+</tbody></table>
+</div><hr>
+<h2 id="performance"><a class="heading-anchor" href="#performance" aria-label="Link to Performance"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Performance</h2><h3 id="what-is-the-enforcement-overhead"><a class="heading-anchor" href="#what-is-the-enforcement-overhead" aria-label="Link to What is the enforcement overhead?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What is the enforcement overhead?</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Overhead</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Policy evaluation</td>
+<td>&lt; 0.05ms</td>
+</tr>
+<tr>
+<td>PII redaction (regex)</td>
+<td>~0.03ms</td>
+</tr>
+<tr>
+<td>Audit entry</td>
+<td>~0.001ms</td>
+</tr>
+<tr>
+<td>Resource guard</td>
+<td>&lt; 0.01ms</td>
+</tr>
+<tr>
+<td><strong>Typical total</strong></td>
+<td><strong>~0.09ms</strong> (full stack, p50)</td>
+</tr>
+</tbody></table>
+</div><p>This is negligible compared to typical tool call latency (100ms–10s for
+API calls). Benchmarks measured on Python 3.14 with 20 scenarios.</p>
+<h3 id="is-the-policy-cache-thread-safe"><a class="heading-anchor" href="#is-the-policy-cache-thread-safe" aria-label="Link to Is the policy cache thread-safe?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Is the policy cache thread-safe?</h3><p>Yes. Since v1.0.6, the policy cache uses a <code>threading.Lock</code> for
+thread-safe access. Multiple threads can safely use <code>@enforce()</code> with
+the same policy path.</p>
+<h3 id="what-is-the-maximum-input-size"><a class="heading-anchor" href="#what-is-the-maximum-input-size" aria-label="Link to What is the maximum input size?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What is the maximum input size?</h3><p>By default, 10 MB (sum of all string and bytes arguments). This is
+configurable via the <code>max_bytes</code> parameter of <code>check_input_size()</code>.
+Inputs exceeding this limit raise <code>InputTooLargeError</code> before any
+processing occurs.</p>
+<hr>
+<h2 id="audit-trail"><a class="heading-anchor" href="#audit-trail" aria-label="Link to Audit Trail"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Audit Trail</h2><h3 id="how-does-the-merkle-chain-work"><a class="heading-anchor" href="#how-does-the-merkle-chain-work" aria-label="Link to How does the Merkle chain work?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>How does the Merkle chain work?</h3><p>Each audit entry contains a <code>previous_hash</code> field pointing to the
+SHA-256 hash of the preceding entry. This creates a linked chain where
+any modification, deletion, insertion, or reordering is detectable by
+<code>verify_trail()</code>.</p>
+<h3 id="can-i-resume-the-chain-across-sessions"><a class="heading-anchor" href="#can-i-resume-the-chain-across-sessions" aria-label="Link to Can I resume the chain across sessions?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Can I resume the chain across sessions?</h3><p>Yes. When you create an <code>Auditor</code> pointing to an existing trail file,
+it reads the last entry&#39;s hash and continues the chain seamlessly.
+Multiple sessions can append to the same trail file.</p>
+<h3 id="can-i-load-only-recent-entries"><a class="heading-anchor" href="#can-i-load-only-recent-entries" aria-label="Link to Can I load only recent entries?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Can I load only recent entries?</h3><p>Yes. Since v1.0.6, <code>load_trail()</code> accepts a <code>max_entries</code> parameter.
+When set, it returns only the most recent N entries from the trail:</p>
+<div class="code-block-wrapper"><pre><code class="hljs language-python">recent = load_trail(<span class="hljs-string">&quot;audit.jsonl&quot;</span>, max_entries=<span class="hljs-number">100</span>)</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><hr>
+<h2 id="configuration"><a class="heading-anchor" href="#configuration" aria-label="Link to Configuration"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Configuration</h2><h3 id="what-environment-variables-does-enforcecore-use"><a class="heading-anchor" href="#what-environment-variables-does-enforcecore-use" aria-label="Link to What environment variables does EnforceCore use?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>What environment variables does EnforceCore use?</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ENFORCECORE_DEFAULT_POLICY</code></td>
+<td><code>None</code></td>
+<td>Default policy file path</td>
+</tr>
+<tr>
+<td><code>ENFORCECORE_AUDIT_PATH</code></td>
+<td><code>./audit_logs/</code></td>
+<td>Audit trail directory</td>
+</tr>
+<tr>
+<td><code>ENFORCECORE_AUDIT_ENABLED</code></td>
+<td><code>true</code></td>
+<td>Enable/disable auditing</td>
+</tr>
+<tr>
+<td><code>ENFORCECORE_REDACTION_ENABLED</code></td>
+<td><code>true</code></td>
+<td>Enable/disable PII redaction</td>
+</tr>
+<tr>
+<td><code>ENFORCECORE_LOG_LEVEL</code></td>
+<td><code>INFO</code></td>
+<td>Structured log level</td>
+</tr>
+<tr>
+<td><code>ENFORCECORE_COST_BUDGET_USD</code></td>
+<td><code>100.0</code></td>
+<td>Global cost budget</td>
+</tr>
+<tr>
+<td><code>ENFORCECORE_FAIL_OPEN</code></td>
+<td><code>false</code></td>
+<td>Allow bypass on errors</td>
+</tr>
+<tr>
+<td><code>ENFORCECORE_DEV_MODE</code></td>
+<td><code>false</code></td>
+<td>Development mode flag</td>
+</tr>
+</tbody></table>
+</div><h3 id="how-do-i-disable-auditing-for-tests"><a class="heading-anchor" href="#how-do-i-disable-auditing-for-tests" aria-label="Link to How do I disable auditing for tests?"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>How do I disable auditing for tests?</h3><p>Set <code>ENFORCECORE_AUDIT_ENABLED=false</code> in your test environment, or use
+the <code>_disable_audit_globally</code> autouse fixture pattern from EnforceCore&#39;s
+own test suite.</p>
+
+                
+            </main>
+        </div>
+    </div>
+
+    <footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">EnforceCore</div>
+        <div class="footer-brand-desc">Runtime enforcement for AI agents.</div>
+        <div class="flex gap-3" style="margin-top: var(--space-3);">
+          <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://discord.gg/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="Discord">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.946 2.419-2.157 2.419z"/></svg>
+          </a>
+          <a href="https://x.com/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="X (Twitter)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Documentation</div>
+        <ul>
+          <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+          <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+          <li><a href="../../docs/reference/api/enforcer.html">API Reference</a></li>
+          <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <ul>
+          <li><a href="../../blog/">Blog</a></li>
+          <li><a href="../../case-studies/">Use Cases</a></li>
+          <li><a href="../../community.html">Community</a></li>
+          <li><a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="../../legal.html">Overview</a></li>
+          <li><a href="../../terms.html">Terms of Use</a></li>
+          <li><a href="../../privacy.html">Privacy Policy</a></li>
+          <li><a href="../../cookies.html">Cookies</a></li>
+          <li><a href="../../disclosure.html">Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EnforceCore Contributors · <a href="https://github.com/akios-ai/EnforceCore/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0</a></span>
+    </div>
+  </div>
+</footer>
+
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/search.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mainNav = document.getElementById('main-nav');
+      if (menuBtn && mainNav) {
+        menuBtn.addEventListener('click', () => {
+          mainNav.classList.toggle('open');
+          document.body.classList.toggle('mobile-nav-open');
+          const isOpen = mainNav.classList.contains('open');
+          menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+          menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          menuBtn.innerHTML = isOpen
+            ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+            : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+        });
+
+        // Close menu when a nav link is clicked
+        mainNav.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            document.body.classList.remove('mobile-nav-open');
+            menuBtn.setAttribute('aria-label', 'Open menu');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+          });
+        });
+      }
+
+      // Tab switching
+      document.querySelectorAll('.code-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.tab;
+          const win = btn.closest('.code-window');
+          if (!win) return;
+          win.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+          win.querySelectorAll('.code-content').forEach(c => c.classList.add('hidden'));
+          btn.classList.add('active');
+          const pane = document.getElementById('tab-' + tab);
+          if (pane) pane.classList.remove('hidden');
+        });
+      });
+
+      // Install command copy
+      const installCopyBtn = document.getElementById('install-copy');
+      if (installCopyBtn) {
+        installCopyBtn.addEventListener('click', () => {
+          const cmd = document.getElementById('install-cmd')?.innerText?.trim();
+          if (!cmd) return;
+          navigator.clipboard.writeText(cmd).then(() => {
+            installCopyBtn.style.color = '#22d3ee';
+            setTimeout(() => { installCopyBtn.style.color = ''; }, 2000);
+          });
+        });
+      }
+
+    });
+
+    // Copy buttons for code blocks
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre').forEach(pre => {
+        if (pre.closest('.code-block-wrapper')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.innerText = 'Copy';
+        btn.onclick = () => {
+          navigator.clipboard.writeText(pre.innerText).then(() => {
+            btn.innerText = 'Copied!';
+            setTimeout(() => btn.innerText = 'Copy', 2000);
+          });
+        };
+        wrapper.appendChild(btn);
+      });
+    });
+  </script>
+
+    
+    <script>
+        (function() {
+            var p = window.location.pathname.replace(/\/$/, '').replace(/\/index\.html$/, '');
+            document.querySelectorAll('.docs-nav a').forEach(function(link) {
+                var href = link.getAttribute('href');
+                var normalized = href.replace(/\/$/, '').replace(/\/index\.html$/, '').replace(/\.html$/, '');
+                if (p.endsWith(normalized) || p.endsWith(normalized.replace(/\.html$/, ''))) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Docs sidebar toggle
+            var toggle = document.getElementById('docs-sidebar-toggle');
+            var sidebar = document.getElementById('docs-sidebar');
+            var backdrop = document.getElementById('docs-sidebar-backdrop');
+            if (toggle && sidebar) {
+                toggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    if (backdrop) backdrop.classList.toggle('open');
+                });
+                if (backdrop) {
+                    backdrop.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        backdrop.classList.remove('open');
+                    });
+                }
+                sidebar.querySelectorAll('a').forEach(function(a) {
+                    a.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        if (backdrop) backdrop.classList.remove('open');
+                    });
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

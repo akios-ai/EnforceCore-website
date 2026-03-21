@@ -1,0 +1,565 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDPR — Data Protection Considerations — EnforceCore Docs</title>
+    <meta name="description" content="Regulation: Regulation (EU) 2016/679 (General Data Protection Regulation) Mapped against: EnforceCore v1.0.23a1 Last updated: 2026-02-23 Disclaimer This...">
+    <link rel="canonical" href="https://enforcecore.dev/docs/compliance/gdpr/">
+    <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="#docs-main" class="skip-link">Skip to content</a>
+    <header>
+  <div class="container header-inner">
+
+    <a href="../../" class="logo-link">
+      <img src="../../assets/img/logo-enforcecore-light-x.svg" alt="EnforceCore" class="logo-light header-logo" width="61" height="44">
+      <img src="../../assets/img/logo-enforcecore-dark-x.svg" alt="EnforceCore" class="logo-dark header-logo" width="61" height="44">
+    </a>
+
+    <nav id="main-nav">
+      <div class="nav-links">
+        <a href="../../docs/index.html" class="nav-link">Documentation</a>
+        <a href="../../blog/" class="nav-link">Blog</a>
+        <a href="../../case-studies/" class="nav-link">Use Cases</a>
+        <a href="../../community.html" class="nav-link">Community</a>
+      </div>
+
+      <div class="nav-utils">
+        <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-link nav-github-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <div class="search-container">
+          <div class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <input type="text" id="search-input" placeholder="Search..." aria-label="Search documentation">
+          <div class="search-shortcut">⌘K</div>
+          <div id="search-results" class="search-results"></div>
+        </div>
+        <button id="theme-toggle" class="nav-icon-btn" aria-label="Toggle theme">
+          <svg id="theme-icon-sun" class="theme-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="theme-icon-moon" class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+  </div>
+</header>
+
+
+    <button class="docs-sidebar-toggle" id="docs-sidebar-toggle" aria-label="Toggle navigation">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span>Menu</span>
+    </button>
+    <div class="docs-sidebar-backdrop" id="docs-sidebar-backdrop"></div>
+
+    <div class="page">
+        <div class="docs-wrapper">
+            
+            <aside class="docs-sidebar" id="docs-sidebar">
+                <nav class="docs-nav">
+                    <div class="section-title">Getting Started</div>
+                    <ul>
+                        <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+                        <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+                    </ul>
+
+                    <div class="section-title">Concepts</div>
+                    <ul>
+                        <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+                        <li><a href="../../docs/concepts/policy-engine.html">Policy Engine</a></li>
+                        <li><a href="../../docs/concepts/security-model.html">Security Model</a></li>
+                        <li><a href="../../docs/concepts/defense-in-depth.html">Defense in Depth</a></li>
+                        <li><a href="../../docs/concepts/technology.html">Technology Stack</a></li>
+                    </ul>
+
+                    <div class="section-title">Guides</div>
+                    <ul>
+                        <li><a href="../../docs/guides/integrations.html">Integrations</a></li>
+                        <li><a href="../../docs/guides/development.html">Developer Guide</a></li>
+                        <li><a href="../../docs/guides/tool-selection.html">Tool Selection</a></li>
+                    </ul>
+
+                    <div class="section-title">Reference</div>
+                    <ul>
+                        <li><a href="../../docs/reference/api/enforcer.html">Enforcer API</a></li>
+                        <li><a href="../../docs/reference/api/auditor.html">Auditor API</a></li>
+                        <li><a href="../../docs/reference/api/guard.html">Guard API</a></li>
+                        <li><a href="../../docs/reference/api/redactor.html">Redactor API</a></li>
+                        <li><a href="../../docs/reference/compliance/gdpr.html">GDPR</a></li>
+                        <li><a href="../../docs/reference/compliance/eu-ai-act.html">EU AI Act</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="docs-content" id="docs-main">
+                <h1 id="gdpr-data-protection-considerations">GDPR — Data Protection Considerations</h1><p><strong>Regulation:</strong> Regulation (EU) 2016/679 (General Data Protection Regulation)
+<strong>Mapped against:</strong> EnforceCore v1.0.23a1
+<strong>Last updated:</strong> 2026-02-23</p>
+<hr>
+<h2 id="disclaimer"><a class="heading-anchor" href="#disclaimer" aria-label="Link to Disclaimer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Disclaimer</h2><p>This document analyses how EnforceCore&#39;s capabilities relate to specific GDPR
+articles. It is a <strong>technical analysis</strong>, not legal advice. GDPR compliance
+depends on the full processing context, legal basis, and data controller&#39;s
+obligations. Organizations must consult qualified Data Protection Officers
+(DPOs) and legal counsel.</p>
+<hr>
+<h2 id="scope"><a class="heading-anchor" href="#scope" aria-label="Link to Scope"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Scope</h2><p>EnforceCore processes text data that may contain personal data (PII) when:</p>
+<ol>
+<li><strong>Input redaction</strong> — scanning tool call arguments for PII before execution</li>
+<li><strong>Output redaction</strong> — scanning tool responses for PII before returning</li>
+<li><strong>Audit trail recording</strong> — logging tool call metadata (hashed, not raw)</li>
+</ol>
+<p>This document addresses the GDPR articles most relevant to these processing
+activities.</p>
+<hr>
+<h2 id="article-by-article-analysis"><a class="heading-anchor" href="#article-by-article-analysis" aria-label="Link to Article-by-Article Analysis"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Article-by-Article Analysis</h2><h3 id="article-51c-data-minimisation"><a class="heading-anchor" href="#article-51c-data-minimisation" aria-label="Link to Article 5(1)(c) — Data Minimisation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Article 5(1)(c) — Data Minimisation</h3><blockquote><p><em>&quot;Personal data shall be adequate, relevant and limited to what is necessary
+in relation to the purposes for which they are processed.&quot;</em></p>
+</blockquote><p><strong>EnforceCore support:</strong></p>
+<ul>
+<li><strong>PII redaction</strong> removes personal data from tool call arguments and
+responses <strong>before</strong> the data reaches external tools or is returned to
+the agent.</li>
+<li>Redaction strategies:<ul>
+<li><code>placeholder</code> — replaces with <code>&lt;EMAIL&gt;</code>, <code>&lt;PHONE&gt;</code>, etc.</li>
+<li><code>mask</code> — replaces with asterisks (<code>****@****.***</code>)</li>
+<li><code>hash</code> — replaces with one-way SHA-256 hash (<code>[SHA256:abc...]</code>)</li>
+<li><code>remove</code> — deletes the match entirely</li>
+</ul>
+</li>
+<li><strong>5 PII categories</strong>: email, phone, SSN, credit card, IP address</li>
+<li><strong>11 secret categories</strong>: AWS keys, GitHub tokens, API keys, etc.</li>
+<li><strong>Unicode evasion resistance</strong>: NFC normalization, homoglyph detection,
+URL/HTML entity decoding</li>
+</ul>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li><code>enforcecore/redactor/engine.py</code> — <code>Redactor.redact()</code></li>
+<li><code>enforcecore/redactor/patterns.py</code> — PII patterns</li>
+<li><code>enforcecore/redactor/secrets.py</code> — secret patterns</li>
+<li><code>enforcecore/redactor/unicode.py</code> — evasion resistance</li>
+</ul>
+<p><strong>Verification:</strong></p>
+<div class="code-block-wrapper"><pre><code class="hljs language-bash">pytest tests/redactor/ -v          <span class="hljs-comment"># PII detection tests</span>
+pytest tests/redactor/test_unicode.py -v  <span class="hljs-comment"># Evasion resistance</span></code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p><strong>Limitations:</strong></p>
+<ul>
+<li>Regex-based detection has inherent false negatives</li>
+<li>Person names are not detected (too noisy without NLP)</li>
+<li>Binary/image data is not scanned</li>
+<li>PII in structured sub-formats (JSON-in-strings) may evade detection</li>
+</ul>
+<hr>
+<h3 id="article-51e-storage-limitation"><a class="heading-anchor" href="#article-51e-storage-limitation" aria-label="Link to Article 5(1)(e) — Storage Limitation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Article 5(1)(e) — Storage Limitation</h3><blockquote><p><em>&quot;Personal data shall be kept in a form which permits identification of
+data subjects for no longer than is necessary.&quot;</em></p>
+</blockquote><p><strong>EnforceCore support:</strong></p>
+<ul>
+<li><strong>Audit trail retention</strong> — configurable automatic deletion of old audit
+files after a specified number of days.</li>
+<li><strong>Audit trail rotation</strong> — size-based rotation prevents unbounded growth.</li>
+<li><strong>Settings:</strong><ul>
+<li><code>audit_retain_days</code> (default: 90) — files older than this are deleted</li>
+<li><code>audit_rotate_mb</code> (default: 100) — rotate file when it exceeds this size</li>
+<li><code>audit_compress</code> (default: True) — gzip rotated files</li>
+</ul>
+</li>
+</ul>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li><code>enforcecore/auditor/rotation.py</code> — <code>AuditRotator</code></li>
+<li><code>enforcecore/core/config.py</code> — retention settings</li>
+</ul>
+<p><strong>Verification:</strong></p>
+<div class="code-block-wrapper"><pre><code class="hljs language-bash">pytest tests/auditor/test_rotation.py -v  <span class="hljs-comment"># Rotation and retention tests</span></code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p><strong>Important:</strong> Audit entries contain <strong>hashed</strong> arguments and results
+(<code>args_hash</code>, <code>result_hash</code>), not raw personal data. However, tool names,
+timestamps, and decision reasons may contain identifying information
+depending on the application context.</p>
+<hr>
+<h3 id="article-25-data-protection-by-design-and-by-default"><a class="heading-anchor" href="#article-25-data-protection-by-design-and-by-default" aria-label="Link to Article 25 — Data Protection by Design and by Default"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Article 25 — Data Protection by Design and by Default</h3><blockquote><p><em>&quot;The controller shall [...] implement appropriate technical and
+organisational measures [...] which are designed to implement data-protection
+principles.&quot;</em></p>
+</blockquote><p><strong>EnforceCore support:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>By design</strong></td>
+<td>PII redaction is built into the enforcement pipeline — not an add-on</td>
+</tr>
+<tr>
+<td><strong>By default</strong></td>
+<td>When <code>pii_redaction.enabled: true</code> is in the policy, redaction is automatic</td>
+</tr>
+<tr>
+<td><strong>Minimisation</strong></td>
+<td>Redaction removes PII before it reaches external tools</td>
+</tr>
+<tr>
+<td><strong>Pseudonymisation</strong></td>
+<td><code>hash</code> strategy replaces PII with irreversible SHA-256 hashes</td>
+</tr>
+<tr>
+<td><strong>Confidentiality</strong></td>
+<td>Secret detection strips credentials from data flows</td>
+</tr>
+</tbody></table>
+</div><p><strong>Policy example:</strong></p>
+<div class="code-block-wrapper"><pre><code class="hljs language-yaml"><span class="hljs-attr">rules:</span>
+  <span class="hljs-attr">pii_redaction:</span>
+    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">categories:</span> [<span class="hljs-string">email</span>, <span class="hljs-string">phone</span>, <span class="hljs-string">ssn</span>, <span class="hljs-string">credit_card</span>, <span class="hljs-string">ip_address</span>]
+    <span class="hljs-attr">strategy:</span> <span class="hljs-string">&quot;placeholder&quot;</span>
+  <span class="hljs-attr">secret_detection:</span>
+    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">categories:</span> [<span class="hljs-string">aws_access_key</span>, <span class="hljs-string">github_token</span>, <span class="hljs-string">generic_api_key</span>]</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><p><strong>By default</strong>, if <code>pii_redaction</code> is not configured in the policy, no
+redaction occurs. This is intentional — redaction is opt-in per policy to
+avoid false positives in applications where PII processing is legitimate
+and lawful.</p>
+<hr>
+<h3 id="article-30-records-of-processing-activities"><a class="heading-anchor" href="#article-30-records-of-processing-activities" aria-label="Link to Article 30 — Records of Processing Activities"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Article 30 — Records of Processing Activities</h3><blockquote><p><em>&quot;Each controller [...] shall maintain a record of processing activities
+under its responsibility.&quot;</em></p>
+</blockquote><p><strong>EnforceCore support:</strong></p>
+<ul>
+<li><strong>Merkle-chained audit trail</strong> records every enforcement decision with:<ul>
+<li>Timestamp (ISO 8601)</li>
+<li>Tool name</li>
+<li>Policy name and version</li>
+<li>Decision (allowed / blocked)</li>
+<li>Violation type and reason (if blocked)</li>
+<li>Input/output argument hashes (SHA-256)</li>
+<li>Redaction counts (number of PII matches redacted)</li>
+<li>Timing (enforcement overhead, call duration)</li>
+<li>Merkle chain hash (links to previous entry)</li>
+</ul>
+</li>
+<li><strong>Tamper-evident</strong> — any modification to a past entry breaks the hash chain</li>
+<li><strong>Verifiable</strong> — <code>enforcecore verify audit.jsonl</code> checks integrity</li>
+<li><strong>Inspectable</strong> — <code>enforcecore inspect audit.jsonl</code> with filtering</li>
+</ul>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li><code>enforcecore/auditor/engine.py</code> — <code>Auditor</code>, <code>AuditEntry</code></li>
+<li><code>enforcecore/auditor/backends.py</code> — storage backends (JSONL, Callback)</li>
+</ul>
+<p><strong>Verification:</strong></p>
+<div class="code-block-wrapper"><pre><code class="hljs language-bash">pytest tests/auditor/ -v        <span class="hljs-comment"># Audit trail tests</span>
+enforcecore verify audit.jsonl  <span class="hljs-comment"># Chain integrity check</span></code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent).then(()=>this.textContent='Copied!').catch(()=>this.textContent='Failed');setTimeout(()=>this.textContent='Copy', 2000)">Copy</button></div><hr>
+<h2 id="the-right-to-erasure-tension-article-17"><a class="heading-anchor" href="#the-right-to-erasure-tension-article-17" aria-label="Link to The Right-to-Erasure Tension (Article 17)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>The Right-to-Erasure Tension (Article 17)</h2><h3 id="the-problem"><a class="heading-anchor" href="#the-problem" aria-label="Link to The Problem"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>The Problem</h3><blockquote><p><em>&quot;The data subject shall have the right to obtain from the controller the
+erasure of personal data concerning him or her without undue delay.&quot;</em></p>
+</blockquote><p>EnforceCore&#39;s audit trail is designed to be <strong>tamper-evident</strong> — any deletion
+breaks the Merkle hash chain. This creates a tension with GDPR Article 17
+(right to erasure): if a data subject requests deletion of their personal
+data from audit records, complying would break the chain integrity.</p>
+<h3 id="analysis"><a class="heading-anchor" href="#analysis" aria-label="Link to Analysis"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Analysis</h3><p>This tension is well-known in the intersection of immutable logging and data
+protection law. Key considerations:</p>
+<ol>
+<li><p><strong>Audit entries contain hashes, not raw PII.</strong> The <code>args_hash</code> and
+<code>result_hash</code> fields are SHA-256 hashes of the original data. SHA-256
+is a one-way function — the original data cannot be recovered from the
+hash. Under GDPR Recital 26, data that cannot be attributed to a natural
+person is not personal data.</p>
+</li>
+<li><p><strong>Tool names and metadata may be identifying.</strong> If a tool name includes
+user-specific information (e.g., <code>search_for_user_12345</code>), the audit
+entry could be considered personal data even without raw PII.</p>
+</li>
+<li><p><strong>Legal basis matters.</strong> Audit trails for security and compliance purposes
+may be justified under Article 6(1)(f) (legitimate interest) or
+Article 6(1)(c) (legal obligation). In regulated industries, audit
+retention may be legally required, which overrides the right to erasure
+per Article 17(3)(b).</p>
+</li>
+</ol>
+<h3 id="recommended-approach"><a class="heading-anchor" href="#recommended-approach" aria-label="Link to Recommended Approach"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Recommended Approach</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Hash-only storage</strong> (default)</td>
+<td>Store only <code>args_hash</code> and <code>result_hash</code> in audit entries — no raw PII</td>
+</tr>
+<tr>
+<td><strong>Redact before audit</strong></td>
+<td>Ensure PII redaction runs before audit recording — audit entries contain only redacted data</td>
+</tr>
+<tr>
+<td><strong>Retention limits</strong></td>
+<td>Configure <code>audit_retain_days</code> to automatically delete old entries</td>
+</tr>
+<tr>
+<td><strong>Tombstone records</strong></td>
+<td>Replace specific entries with a tombstone marker (preserving chain integrity) — requires re-sealing subsequent entries</td>
+</tr>
+<tr>
+<td><strong>Legal basis documentation</strong></td>
+<td>Document the legitimate interest / legal obligation basis for audit retention</td>
+</tr>
+</tbody></table>
+</div><h3 id="current-implementation"><a class="heading-anchor" href="#current-implementation" aria-label="Link to Current Implementation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Current Implementation</h3><p>EnforceCore&#39;s enforcement pipeline processes in this order:</p>
+<ol>
+<li>Input redaction (PII removed)</li>
+<li>Tool execution (with redacted args)</li>
+<li>Output redaction (PII removed from response)</li>
+<li><strong>Audit recording</strong> (with hashed, redacted data)</li>
+</ol>
+<p>This means the audit trail already contains <strong>redacted and hashed</strong> data by
+default. The risk of personal data in audit entries is limited to metadata
+fields (tool name, timestamps, policy decisions) that may be indirectly
+identifying in context.</p>
+<p><strong>Tombstone support</strong> is not implemented in v1.0.12 but could be added as
+a future feature. The chain would need to be re-sealed from the tombstone
+point forward.</p>
+<hr>
+<h2 id="summary"><a class="heading-anchor" href="#summary" aria-label="Link to Summary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Summary</h2><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>GDPR Article</th>
+<th>EnforceCore Support</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Art. 5(1)(c) — Data Minimisation</td>
+<td>PII redaction on inputs/outputs</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td>Art. 5(1)(e) — Storage Limitation</td>
+<td>Audit retention + rotation</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td>Art. 25 — Data Protection by Design</td>
+<td>Redaction built into pipeline</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td>Art. 30 — Records of Processing</td>
+<td>Merkle-chained audit trail</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td>Art. 17 — Right to Erasure</td>
+<td>Hash-only storage + retention limits; tombstone not yet supported</td>
+<td>⚠️ Partial</td>
+</tr>
+</tbody></table>
+</div><hr>
+<h2 id="revision-history"><a class="heading-anchor" href="#revision-history" aria-label="Link to Revision History"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>Revision History</h2><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Changes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0.23a1</td>
+<td>2026-02-23</td>
+<td>Updated version header to current release</td>
+</tr>
+<tr>
+<td>1.0.12a1</td>
+<td>2026-02-21</td>
+<td>Initial GDPR considerations document</td>
+</tr>
+</tbody></table>
+</div>
+                
+            </main>
+        </div>
+    </div>
+
+    <footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">EnforceCore</div>
+        <div class="footer-brand-desc">Runtime enforcement for AI agents.</div>
+        <div class="flex gap-3" style="margin-top: var(--space-3);">
+          <a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://discord.gg/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="Discord">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.946 2.419-2.157 2.419z"/></svg>
+          </a>
+          <a href="https://x.com/enforcecore" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="X (Twitter)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Documentation</div>
+        <ul>
+          <li><a href="../../docs/getting-started/introduction.html">Introduction</a></li>
+          <li><a href="../../docs/getting-started/quickstart.html">Quickstart</a></li>
+          <li><a href="../../docs/reference/api/enforcer.html">API Reference</a></li>
+          <li><a href="../../docs/concepts/architecture.html">Architecture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <ul>
+          <li><a href="../../blog/">Blog</a></li>
+          <li><a href="../../case-studies/">Use Cases</a></li>
+          <li><a href="../../community.html">Community</a></li>
+          <li><a href="https://github.com/akios-ai/EnforceCore" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="../../legal.html">Overview</a></li>
+          <li><a href="../../terms.html">Terms of Use</a></li>
+          <li><a href="../../privacy.html">Privacy Policy</a></li>
+          <li><a href="../../cookies.html">Cookies</a></li>
+          <li><a href="../../disclosure.html">Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EnforceCore Contributors · <a href="https://github.com/akios-ai/EnforceCore/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0</a></span>
+    </div>
+  </div>
+</footer>
+
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/search.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mainNav = document.getElementById('main-nav');
+      if (menuBtn && mainNav) {
+        menuBtn.addEventListener('click', () => {
+          mainNav.classList.toggle('open');
+          document.body.classList.toggle('mobile-nav-open');
+          const isOpen = mainNav.classList.contains('open');
+          menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+          menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          menuBtn.innerHTML = isOpen
+            ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+            : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+        });
+
+        // Close menu when a nav link is clicked
+        mainNav.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            document.body.classList.remove('mobile-nav-open');
+            menuBtn.setAttribute('aria-label', 'Open menu');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+          });
+        });
+      }
+
+      // Tab switching
+      document.querySelectorAll('.code-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.tab;
+          const win = btn.closest('.code-window');
+          if (!win) return;
+          win.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+          win.querySelectorAll('.code-content').forEach(c => c.classList.add('hidden'));
+          btn.classList.add('active');
+          const pane = document.getElementById('tab-' + tab);
+          if (pane) pane.classList.remove('hidden');
+        });
+      });
+
+      // Install command copy
+      const installCopyBtn = document.getElementById('install-copy');
+      if (installCopyBtn) {
+        installCopyBtn.addEventListener('click', () => {
+          const cmd = document.getElementById('install-cmd')?.innerText?.trim();
+          if (!cmd) return;
+          navigator.clipboard.writeText(cmd).then(() => {
+            installCopyBtn.style.color = '#22d3ee';
+            setTimeout(() => { installCopyBtn.style.color = ''; }, 2000);
+          });
+        });
+      }
+
+    });
+
+    // Copy buttons for code blocks
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre').forEach(pre => {
+        if (pre.closest('.code-block-wrapper')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.innerText = 'Copy';
+        btn.onclick = () => {
+          navigator.clipboard.writeText(pre.innerText).then(() => {
+            btn.innerText = 'Copied!';
+            setTimeout(() => btn.innerText = 'Copy', 2000);
+          });
+        };
+        wrapper.appendChild(btn);
+      });
+    });
+  </script>
+
+    
+    <script>
+        (function() {
+            var p = window.location.pathname.replace(/\/$/, '').replace(/\/index\.html$/, '');
+            document.querySelectorAll('.docs-nav a').forEach(function(link) {
+                var href = link.getAttribute('href');
+                var normalized = href.replace(/\/$/, '').replace(/\/index\.html$/, '').replace(/\.html$/, '');
+                if (p.endsWith(normalized) || p.endsWith(normalized.replace(/\.html$/, ''))) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Docs sidebar toggle
+            var toggle = document.getElementById('docs-sidebar-toggle');
+            var sidebar = document.getElementById('docs-sidebar');
+            var backdrop = document.getElementById('docs-sidebar-backdrop');
+            if (toggle && sidebar) {
+                toggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    if (backdrop) backdrop.classList.toggle('open');
+                });
+                if (backdrop) {
+                    backdrop.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        backdrop.classList.remove('open');
+                    });
+                }
+                sidebar.querySelectorAll('a').forEach(function(a) {
+                    a.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        if (backdrop) backdrop.classList.remove('open');
+                    });
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
